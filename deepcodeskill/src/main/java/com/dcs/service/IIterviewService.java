@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.dcs.dto.Interview;
 
-public interface IIterviewServices {
+public interface IIterviewService {
 	
 	public List<Interview> listInterview();
 	

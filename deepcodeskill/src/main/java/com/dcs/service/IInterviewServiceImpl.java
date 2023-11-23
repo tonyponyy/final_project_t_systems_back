@@ -9,7 +9,7 @@ import com.dcs.dao.IInterviewDAO;
 import com.dcs.dto.Interview;
 
 @Service
-public class InterviewServicesImpl implements IIterviewServices{
+public class IInterviewServiceImpl implements IIterviewService{
 
 	@Autowired
 	IInterviewDAO dao;

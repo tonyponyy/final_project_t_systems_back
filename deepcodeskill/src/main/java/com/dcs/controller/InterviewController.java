@@ -13,26 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Interview;
-import com.dcs.service.InterviewServicesImpl;
+import com.dcs.service.IInterviewServiceImpl;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/interviews")
 public class InterviewController {
 	
 	@Autowired
-	InterviewServicesImpl iSer;
+	IInterviewServiceImpl iSer;
 	
-	@GetMapping("/interview")
+	@GetMapping("/all")
 	public List<Interview> listInterview(){
 		return iSer.listInterview();
 	}
 	
-	@GetMapping("/interview/{id}")
+	@GetMapping("/{id}")
 	public Interview listById(@PathVariable(name="id") Integer id) {
 		return iSer.listById(id);
 	}
 	
-	@PutMapping("/interview/{id}")
+	@PutMapping("/{id}")
 	public Interview updateInterview(@PathVariable(name="id") Integer id, @RequestBody Interview i) {
 		
 		Interview i1 = iSer.listById(id);
@@ -48,12 +48,12 @@ public class InterviewController {
 		return i2;
 	}
 	
-	@PostMapping("/interview")
+	@PostMapping("/add")
 	public Interview addInterview(@RequestBody Interview i) {
 		return iSer.addInterview(i);
 	}
 	
-	@DeleteMapping("/interview/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		iSer.deleteByIdInterview(id);
 	}
