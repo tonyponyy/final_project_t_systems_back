@@ -1,5 +1,12 @@
+drop database if exists deepcodeskill;
 create database deepcodeskill;
 use deepcodeskill;
+
+CREATE TABLE roles(
+id int auto_increment,
+name VARCHAR(100),
+PRIMARY KEY (id)
+);
 
 CREATE TABLE users (
   id int auto_increment ,
@@ -9,9 +16,10 @@ CREATE TABLE users (
   password VARCHAR(50),
   email VARCHAR(100),
   resume blob,
-  role int ,
+  id_role int ,
   photo blob,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_role) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE skills (
@@ -24,10 +32,9 @@ CREATE TABLE skills (
 CREATE TABLE user_skills (
   id_user int,
   id_skill int,
-  KEY id_user (id_user),
-   FOREIGN KEY (id_user) REFERENCES users (id),
-   KEY id_skill (id_skill),
-   FOREIGN KEY (id_skill) REFERENCES skills (id)
+  PRIMARY KEY (id_user, id_skill),
+  FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE interviews (
@@ -41,32 +48,29 @@ CREATE TABLE interviews (
 CREATE TABLE interview_skills (
   id_interview int,
   id_skill int,
-  KEY id_inrterview (id_interview),
-   FOREIGN KEY (id_interview) REFERENCES interviews (id),
-   KEY id_skill (id_skill),
-   FOREIGN KEY (id_skill) REFERENCES skills (id)
+  PRIMARY KEY (id_interview, id_skill),
+  FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE tests (
   id int auto_increment ,
   id_interview int,
-  title VARCHAR(100),
+  name VARCHAR(100),
   description VARCHAR(100),
   endDate date,
   PRIMARY KEY (id),
-   FOREIGN KEY (id_interview) REFERENCES interviews (id),
-   KEY id_interview (id_interview)
+  FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE test_users (
-   id_user int,
-  id_test int,
-  do_at date,
-  calification double,
-  KEY id_user (id_user),
-   FOREIGN KEY (id_user) REFERENCES users (id),
-   KEY id_test (id_test),
-   FOREIGN KEY (id_test) REFERENCES tests (id)
+ id_user int,
+ id_test int,
+ do_at date,
+ calification double,
+  PRIMARY KEY(id_user, id_test),
+   FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY (id_test) REFERENCES tests (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE user_interviews (
@@ -76,9 +80,7 @@ CREATE TABLE user_interviews (
   internal_comment varchar(200),
   stamp int,
   joined_at date,
-  KEY id_user (id_user),
-   FOREIGN KEY (id_user) REFERENCES users (id),
-   KEY id_interview (id_interview),
-   FOREIGN KEY (id_interview) REFERENCES interviews (id)
+  PRIMARY KEY (id_user, id_interview),
+   FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
-
