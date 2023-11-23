@@ -1,5 +1,7 @@
 package com.dcs.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -7,7 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,7 +26,16 @@ public class User {
     private String lastname2;
     private String password;
     private String email;
-
+    
+    @ManyToMany
+    @JoinTable(
+        name = "user_skills",
+        joinColumns = @JoinColumn(name = "id_user"),
+        inverseJoinColumns = @JoinColumn(name = "id_skill")
+    )
+    @JsonIgnoreProperties("users")
+    private List<Skill> skills ;
+    
     @Lob
     private byte[] resume;
 
@@ -37,17 +50,23 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String lastname, String lastname2, String password, String email, byte[] resume, Role role, byte[] photo) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.lastname2 = lastname2;
-        this.password = password;
-        this.email = email;
-        this.resume = resume;
-        this.role = role;
-        this.photo = photo;
-    }
+
+	public User(int id, String name, String lastname, String lastname2, String password, String email,
+			List<Skill> skills, byte[] resume, Role role, byte[] photo) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lastname = lastname;
+		this.lastname2 = lastname2;
+		this.password = password;
+		this.email = email;
+		this.skills = skills;
+		this.resume = resume;
+		this.role = role;
+		this.photo = photo;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -119,6 +138,14 @@ public class User {
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+	
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
 	}
 
     

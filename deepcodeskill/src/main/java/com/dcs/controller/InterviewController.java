@@ -41,6 +41,8 @@ public class InterviewController {
 		i1.setId(i.getId());
 		i1.setDescription(i.getDescription());
 		i1.setTitle(i.getTitle());
+		i1.setTests(i.getTests());
+		i1.setSkills(i.getSkills());
 		i1.setEnd_date(i.getEnd_date());
 		
 		i2 = iSer.updateInterview(i1);

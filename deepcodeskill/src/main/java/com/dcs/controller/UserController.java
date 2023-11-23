@@ -51,6 +51,10 @@ public class UserController {
 	    if (user.getName() != null) {
 	        user_seleccionado.setName(user.getName());
 	    }
+	    
+	    if (user.getSkills() != null) {
+	        user_seleccionado.setSkills(user.getSkills());
+	    }
 
 	    if (user.getLastname() != null) {
 	        user_seleccionado.setLastname(user.getLastname());
