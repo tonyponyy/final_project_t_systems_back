@@ -13,6 +13,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -46,6 +47,10 @@ public class User {
 
     @Lob
     private byte[] photo;
+    
+    @OneToMany
+    @JoinColumn(name="id")
+    private List<UserInterview> userInterview;
 
     public User() {
     }

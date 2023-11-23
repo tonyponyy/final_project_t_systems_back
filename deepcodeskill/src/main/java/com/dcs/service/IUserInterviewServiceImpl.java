@@ -1,0 +1,44 @@
+package com.dcs.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dcs.dao.IUserInterviewDAO;
+import com.dcs.dto.UserInterview;
+
+@Service
+public class IUserInterviewServiceImpl implements IUserInterviewService {
+
+	@Autowired
+	IUserInterviewDAO dao;
+
+	@Override
+	public List<UserInterview> listUserInterview() {
+		return dao.findAll();
+	}
+
+	@Override
+	public UserInterview listUserInterviewById(Integer id) {
+		return dao.findById(id).get();
+	}
+
+	@Override
+	public UserInterview saveUserInterview(UserInterview ui) {
+		return dao.save(ui);
+	}
+
+	@Override
+	public UserInterview updateUserInterview(UserInterview ui) {
+		return dao.save(ui);
+	}
+
+	@Override
+	public void deleteByIdUserInterview(Integer id) {
+		dao.deleteById(id);
+	}
+	
+	
+
+}

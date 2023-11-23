@@ -42,6 +42,10 @@ public class Interview {
     @JsonIgnoreProperties("interviews")
     private List<Skill> skills ;
     
+    @OneToMany
+    @JoinColumn(name="id")
+    private List<UserInterview> userInterview;
+    
 	public Interview() {
 		
 	}
