@@ -41,7 +41,7 @@ CREATE TABLE interviews (
   id int auto_increment ,
   title VARCHAR(100),
   description VARCHAR(100),
-  endDate date,
+  end_date date,
   PRIMARY KEY (id)
 ) ;
 
@@ -58,7 +58,7 @@ CREATE TABLE tests (
   id_interview int,
   name VARCHAR(100),
   description VARCHAR(100),
-  endDate date,
+  end_date date,
   PRIMARY KEY (id),
   FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
