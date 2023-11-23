@@ -74,13 +74,14 @@ CREATE TABLE test_users (
 ) ;
 
 CREATE TABLE user_interviews (
+  id int auto_increment ,
   id_user int,
   id_interview int,
   state int default 1 ,
   internal_comment varchar(200),
-  stamp int,
+  stamp int default 0,
   joined_at date,
-  PRIMARY KEY (id_user, id_interview),
+  PRIMARY KEY (id),
    FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;

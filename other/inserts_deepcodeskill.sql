@@ -12,7 +12,7 @@ INSERT INTO `interviews` VALUES (1,'Programador full stack java','Buscamos progr
 -- interviews skills
 INSERT INTO `interview_skills` VALUES (1,1),(2,3),(3,4);
 -- user interview 
-INSERT INTO `user_interviews` VALUES (4,2,3,'pendiente de prueba tecnica',NULL,'2024-06-14'),(8,1,0,'no tiene la skill necesaria',NULL,'2023-12-13'),(10,3,1,'',NULL,'2024-10-13'),(13,1,1,'',NULL,'2023-12-13'),(13,3,0,'no tiene la skill necesaria',NULL,'2024-11-07'),(15,1,5,'contratada',NULL,'2003-12-20');
+INSERT INTO `user_interviews` (id_user,id_interview,state,internal_comment,joined_at) VALUES (4,2,3,'pendiente de prueba tecnica','2024-06-14'),(8,1,0,'no tiene la skill necesaria','2023-12-13'),(10,3,1,'','2024-10-13'),(13,1,1,'','2023-12-13'),(13,3,0,'no tiene la skill necesaria','2024-11-07'),(15,1,5,'contratada','2003-12-20');
 -- test 
 INSERT INTO `tests` VALUES (1,1,'Prueba tecnica Java Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2023-12-12'),(2,2,'Prueba tecnica PHP Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-06-04'),(3,3,'Prueba tecnica C Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-12-08'),(4,3,'Prueba tecnica CSS','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-07-12');
 -- test users 
