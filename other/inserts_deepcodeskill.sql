@@ -16,4 +16,4 @@ INSERT INTO `user_interviews` (id_user,id_interview,state,internal_comment,joine
 -- test 
 INSERT INTO `tests` VALUES (1,1,'Prueba tecnica Java Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2023-12-12'),(2,2,'Prueba tecnica PHP Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-06-04'),(3,3,'Prueba tecnica C Basica','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-12-08'),(4,3,'Prueba tecnica CSS','La prueba tecnica se realizará en las oficinas de Manresa piso 2 a las 5 de la tarde.','2024-07-12');
 -- test users 
-INSERT INTO `test_users` VALUES (13,1,'2024-10-10',NULL),(13,3,'2024-10-10',4);
+INSERT INTO `test_users`(id_user, id_test, do_at, calification) VALUES (13,1,'2024-10-10',NULL),(13,3,'2024-10-10',4);

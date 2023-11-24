@@ -49,6 +49,10 @@ public class User {
     private byte[] photo;
     
     @OneToMany
+    @JoinColumn(name="id_user")
+    private List<UserTest> userTest;
+    
+    @OneToMany
     @JoinColumn(name="id")
     private List<UserInterview> userInterview;
 

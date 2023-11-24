@@ -1,6 +1,7 @@
 package com.dcs.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +31,10 @@ public class Test {
 	@ManyToOne
     @JoinColumn(name="id_interview")
     private Interview interview;
+	
+	@OneToMany
+    @JoinColumn(name="id_test")
+    private List<UserTest> userTest;
 
 	public Test() {
 
@@ -83,9 +89,5 @@ public class Test {
 	public void setInterview(Interview interview) {
 		this.interview = interview;
 	}
-
-	
-	
-	
 
 }
