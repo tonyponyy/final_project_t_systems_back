@@ -32,7 +32,7 @@ CREATE TABLE skills (
 CREATE TABLE user_skills (
   id_user int,
   id_skill int,
-  PRIMARY KEY (id_user, id_skill),
+  PRIMARY KEY (id_user,id_skill),
   FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
@@ -64,12 +64,12 @@ CREATE TABLE tests (
 ) ;
 
 CREATE TABLE test_users (
- id int auto_increment ,
+id int auto_increment,
  id_user int,
  id_test int,
  do_at date,
  calification double,
-  PRIMARY KEY (id),
+  PRIMARY KEY(id),
    FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
    FOREIGN KEY (id_test) REFERENCES tests (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
