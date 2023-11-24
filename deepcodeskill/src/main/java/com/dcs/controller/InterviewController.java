@@ -1,8 +1,11 @@
 package com.dcs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Interview;
+import com.dcs.dto.InterviewBasic;
 import com.dcs.service.IInterviewServiceImpl;
 
 @RestController
@@ -25,6 +29,17 @@ public class InterviewController {
 	@GetMapping("/all")
 	public List<Interview> listInterview(){
 		return iSer.listInterview();
+	}
+	
+	@GetMapping("/all_basic")
+	public ResponseEntity<List<InterviewBasic>> listInterviewBasic(){
+		List<Interview> interviews = iSer.listInterview();
+		List<InterviewBasic> interviews_basic = interviews.stream().map(this::ConvertInterview).collect(Collectors.toList());
+		return new ResponseEntity<>(interviews_basic,HttpStatus.OK);
+	}
+	
+	private InterviewBasic ConvertInterview(Interview interview){
+		return new InterviewBasic(interview.getId(),interview.getTitle(),interview.getEnd_date(),interview.getSkills());
 	}
 	
 	@GetMapping("/{id}")
