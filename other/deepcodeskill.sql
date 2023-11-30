@@ -8,7 +8,7 @@ name VARCHAR(100),
 PRIMARY KEY (id)
 );
 
-CREATE TABLE resumes(
+CREATE TABLE resume(
 id int auto_increment,
 id_user int,
 resume blob,
@@ -27,7 +27,7 @@ CREATE TABLE users (
   photo blob,
   PRIMARY KEY (id),
   FOREIGN KEY (id_role) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (resume_id) REFERENCES resumes (id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (resume_id) REFERENCES resume (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE skills (
