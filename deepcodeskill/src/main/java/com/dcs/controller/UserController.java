@@ -24,6 +24,7 @@ import jakarta.transaction.Transactional;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	
 	@Autowired
 	private IUserServiceImpl userServiceImpl;
 	@Autowired
@@ -72,9 +73,9 @@ public class UserController {
 	        user_seleccionado.setEmail(user.getEmail());
 	    }
 
-	    if (user.getResume() != null) {
-	        user_seleccionado.setResume(user.getResume());
-	    }
+//	    if (user.getResume_id() != null) {
+//	        user_seleccionado.setResume(user.getResume());
+//	    }
 
 	    if (user.getRole() != null) {
 	        user_seleccionado.setRole(user.getRole());

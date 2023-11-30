@@ -8,18 +8,26 @@ name VARCHAR(100),
 PRIMARY KEY (id)
 );
 
+CREATE TABLE resume(
+id int auto_increment,
+id_user int,
+resume blob,
+PRIMARY KEY (id)
+);
+
 CREATE TABLE users (
   id int auto_increment ,
   name VARCHAR(100),
   lastname VARCHAR(100),
   lastname2 VARCHAR(100),
-  password VARCHAR(50),
+  password VARCHAR(255),
   email VARCHAR(100),
-  resume blob,
+  resume_id int,
   id_role int ,
   photo blob,
   PRIMARY KEY (id),
-  FOREIGN KEY (id_role) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (id_role) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (resume_id) REFERENCES resume (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE skills (

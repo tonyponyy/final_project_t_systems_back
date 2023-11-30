@@ -37,8 +37,10 @@ public class User {
     @JsonIgnoreProperties("users")
     private List<Skill> skills ;
     
-    @Lob
-    private byte[] resume;
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    @JsonIgnoreProperties("users")
+    private Resume resume;
 
     @ManyToOne
     @JoinColumn(name = "id_role")
@@ -59,9 +61,9 @@ public class User {
     public User() {
     }
 
-
 	public User(int id, String name, String lastname, String lastname2, String password, String email,
-			List<Skill> skills, byte[] resume, Role role, byte[] photo) {
+			List<Skill> skills, Resume resume, Role role, byte[] photo, List<UserTest> userTest,
+			List<UserInterview> userInterview) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,9 +75,9 @@ public class User {
 		this.resume = resume;
 		this.role = role;
 		this.photo = photo;
+		this.userTest = userTest;
+		this.userInterview = userInterview;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -125,11 +127,12 @@ public class User {
 		this.email = email;
 	}
 
-	public byte[] getResume() {
+
+	public Resume getResume() {
 		return resume;
 	}
 
-	public void setResume(byte[] resume) {
+	public void setResume(Resume resume) {
 		this.resume = resume;
 	}
 
