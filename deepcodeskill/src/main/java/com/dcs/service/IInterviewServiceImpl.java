@@ -3,10 +3,13 @@ package com.dcs.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dcs.dao.IInterviewDAO;
 import com.dcs.dto.Interview;
+import com.dcs.dto.InterviewBasic;
 
 @Service
 public class IInterviewServiceImpl implements IIterviewService{
@@ -38,5 +41,10 @@ public class IInterviewServiceImpl implements IIterviewService{
 	public void deleteByIdInterview(Integer id) {
 		dao.deleteById(id);	
 	}
+	
+	 @Override
+	 public Page<Interview> getPaginatedInterviewBasic(Pageable pageable) {
+	     return dao.findAll(pageable);
+	 }
 
 }
