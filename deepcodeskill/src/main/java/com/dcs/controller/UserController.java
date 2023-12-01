@@ -69,8 +69,6 @@ public class UserController {
 	        e.printStackTrace(); 
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
 	    }
-		
-		
 	}
 	
 	@PostMapping("/resume")
@@ -87,20 +85,14 @@ public class UserController {
 				r.setId_user(current_user.getId());
 				r.setResume(resume);	
 		        resumeServiceImpl.saveResume(r);
-		        
-		        current_user.setResume(r);
-		        
+		        current_user.setResume(r);  
 		        userServiceImpl.saveUser(current_user);
-		        
-		        
 		    }
 	        return ResponseEntity.ok("Resume added successfully");
 	    } catch (Exception e) {
 	        e.printStackTrace(); 
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
-	    }
-		
-		
+	    }	
 	}
 	
 	@PutMapping("/{id}")
