@@ -3,7 +3,9 @@ package com.dcs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,7 @@ import jakarta.transaction.Transactional;
 @RequestMapping("/users")
 public class UserController {
 	
+	
 	@Autowired
 	private IUserServiceImpl userServiceImpl;
 	@Autowired
@@ -43,6 +46,28 @@ public class UserController {
 		User user_xid= new User();	
 		user_xid=userServiceImpl.userById(id);
 		return user_xid;
+	}
+	
+	@PostMapping("/photo")
+	public ResponseEntity add_photo(@RequestBody byte[] photo) {
+		
+		try {
+			System.out.println("TEST PHOTO");
+		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    User current_user = userServiceImpl.findByEmail(authentication.getName());
+		    //User current_user = userServiceImpl.findByEmail("test@test.com");
+		    System.out.println("EMAIL USER :"+current_user.getEmail());
+			if (photo != null) {
+		        current_user.setPhoto(photo);
+		        userServiceImpl.saveUser(current_user);
+		    }
+	        return ResponseEntity.ok("Photo added successfully");
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
+	    }
+		
+		
 	}
 	
 	@PutMapping("/{id}")
