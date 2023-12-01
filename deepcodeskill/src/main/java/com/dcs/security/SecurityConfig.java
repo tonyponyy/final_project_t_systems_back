@@ -33,7 +33,10 @@ public class SecurityConfig {
 			"/users/resume",
 			"/users/update",
 			"/userskills/**",
-			"/current_user/info"};
+			"/current_user/info",
+			"/userskills/**",
+			"/userskills/add_by/**",
+			"/userskills/delete_by/**"};
 
 	private static final String[] UN_SECURED_URLs = {
 			"/auth/login", "/auth/signup" };

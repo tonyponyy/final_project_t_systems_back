@@ -38,9 +38,10 @@ CREATE TABLE skills (
 ) ;
 
 CREATE TABLE user_skills (
-  id_user int,
+  id int auto_increment ,
   id_skill int,
-  PRIMARY KEY (id_user,id_skill),
+  id_user int,
+  PRIMARY KEY (id),
   FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
@@ -54,9 +55,10 @@ CREATE TABLE interviews (
 ) ;
 
 CREATE TABLE interview_skills (
+  id int auto_increment ,
   id_interview int,
   id_skill int,
-  PRIMARY KEY (id_interview, id_skill),
+  PRIMARY KEY (id),
   FOREIGN KEY (id_interview) REFERENCES interviews (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
@@ -110,11 +112,11 @@ INSERT INTO `users` VALUES (1,'Recursos Humanos','','','PASSWORDEJEMPLO','email@
 -- skills 
 INSERT INTO `skills` VALUES (1,'Java','Habilidades tecnicas con Java'),(2,'Python','Habilidades tecnicas con Python'),(3,'PHP','Habilidades tecnicas con PHP'),(4,'C#','Habilidades tecnicas con C#'),(5,'Javascript','Habilidades tecnicas con Javascript'),(6,'.NET','Habilidades tecnicas con .NET');
 -- users skills
-INSERT INTO `user_skills` VALUES (1,1),(2,1),(15,1),(16,1),(3,2),(4,2),(12,2),(14,2),(6,3),(10,3),(13,3),(9,4),(7,5),(8,5),(5,6);
+INSERT INTO `user_skills` VALUES (1,1,8),(2,3,1),(3,2,6),(4,5,2),(5,3,3),(6,4,3),(7,4,2),(8,1,4),(9,5,5);
 -- interviews
 INSERT INTO `interviews` VALUES (1,'Programador full stack java','Buscamos programador full stack java para empezar en nuestra empresa con los siguientes requisitos','2023-12-12'),(2,'Programador PHP','Buscamos programador experimentado en PHP con 2 años de experiencia labroral en el sector','2024-06-06'),(3,'Programador Junior de C#','Buscamos programadores Juniors para un nuevo proyecto de C#','2024-10-10');
 -- interviews skills
-INSERT INTO `interview_skills` VALUES (1,1),(2,3),(3,4);
+INSERT INTO `interview_skills` VALUES (1,1,1),(2,2,3),(3,3,4);
 -- user interview 
 INSERT INTO `user_interviews` (id_user,id_interview,state,internal_comment,joined_at) VALUES (4,2,3,'pendiente de prueba tecnica','2024-06-14'),(8,1,0,'no tiene la skill necesaria','2023-12-13'),(10,3,1,'','2024-10-13'),(13,1,1,'','2023-12-13'),(13,3,0,'no tiene la skill necesaria','2024-11-07'),(15,1,5,'contratada','2003-12-20');
 -- test 
