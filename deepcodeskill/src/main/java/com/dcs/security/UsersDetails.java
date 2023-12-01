@@ -14,13 +14,13 @@ import com.dcs.dto.User;
 import lombok.Data;
 
 @Data
-public class LibraryUserDetails implements UserDetails {
+public class UsersDetails implements UserDetails {
 
     private String userName;
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public LibraryUserDetails(User user) {
+    public UsersDetails(User user) {
         userName = user.getEmail();
         password = user.getPassword();
         authorities = Arrays.stream(user.getRole().getName()

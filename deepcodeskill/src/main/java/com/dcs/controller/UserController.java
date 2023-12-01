@@ -55,7 +55,16 @@ public class UserController {
 		return user_xid;
 	}
 	
-	@PostMapping("/photo")
+	@GetMapping("/current_user/info")
+	public User userInfo() {
+		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+	    System.out.println("GET NAME"+authentication.getName());
+	    User current_user = userServiceImpl.findByEmail(authentication.getName());
+	    return userServiceImpl.userById(current_user.getId());
+		
+	}
+	
+	@PutMapping("/photo")
 	public ResponseEntity add_photo(@RequestBody byte[] photo) {
 		
 		try {
@@ -78,7 +87,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/resume")
+	@PutMapping("/resume")
 	public ResponseEntity add_resume(@RequestBody byte[] resume) {
 		
 		try {
@@ -124,9 +133,11 @@ public class UserController {
 		
 	}
 	
-	@PutMapping("/{id}")
-	public User actualizaruser(@PathVariable(name="id") Integer id, @RequestBody User user) {
-	    User user_seleccionado = userServiceImpl.userById(id);
+	@PutMapping("/update")
+	public User actualizaruser(@RequestBody User user) {
+	    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    User current_user = userServiceImpl.findByEmail(authentication.getName());
+	    User user_seleccionado = userServiceImpl.userById(current_user.getId());
 
 	    if (user.getName() != null) {
 	        user_seleccionado.setName(user.getName());

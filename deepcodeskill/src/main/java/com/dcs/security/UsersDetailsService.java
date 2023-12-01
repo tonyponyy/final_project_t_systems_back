@@ -12,7 +12,7 @@ import com.dcs.dao.IUserDAO;
 
 
 @Component
-public class LibraryUserDetailsService implements UserDetailsService {
+public class UsersDetailsService implements UserDetailsService {
 
     @Autowired
     private IUserDAO dao;
@@ -20,7 +20,7 @@ public class LibraryUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return dao.findByEmail(username)
-                .map(LibraryUserDetails::new)
+                .map(UsersDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found"));
     }
 }

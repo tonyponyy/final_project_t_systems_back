@@ -20,7 +20,7 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-public class LibrarySecurityConfig {
+public class SecurityConfig {
 
 	private static final String[] SECURED_ADMIN = { 
 			"/users/all", 
@@ -31,17 +31,18 @@ public class LibrarySecurityConfig {
 			"/interviews/**",
 			"/users/photo", 
 			"/users/resume",
-			"/userskills/**"};
+			"/users/update",
+			"/userskills/**",
+			"/current_user/info"};
 
 	private static final String[] UN_SECURED_URLs = {
-			// "/books/all",
 			"/auth/login", "/auth/signup" };
 
 	@Autowired
 	private JWTAuthenticationFilter authenticationFilter;
 
 	@Autowired
-	private LibraryUserDetailsService userDetailsService;
+	private UsersDetailsService userDetailsService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
