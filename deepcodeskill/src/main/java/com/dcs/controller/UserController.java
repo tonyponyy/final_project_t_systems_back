@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.dcs.dto.Resume;
 import com.dcs.dto.User;
+import com.dcs.service.IResumeServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 
 import jakarta.persistence.EntityManager;
@@ -30,6 +31,8 @@ public class UserController {
 	
 	@Autowired
 	private IUserServiceImpl userServiceImpl;
+	@Autowired
+	private IResumeServiceImpl resumeServiceImpl;
 	@Autowired
 	private EntityManager entityManager;
 
@@ -62,6 +65,36 @@ public class UserController {
 		        userServiceImpl.saveUser(current_user);
 		    }
 	        return ResponseEntity.ok("Photo added successfully");
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
+	    }
+		
+		
+	}
+	
+	@PostMapping("/resume")
+	public ResponseEntity add_resume(@RequestBody byte[] resume) {
+		
+		try {
+			System.out.println("TEST RESUME");
+		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    User current_user = userServiceImpl.findByEmail(authentication.getName());
+		    //User current_user = userServiceImpl.findByEmail("test@test.com");
+		    System.out.println("EMAIL USER :"+current_user.getEmail());
+			if (resume != null) {
+				Resume r = new Resume();
+				r.setId_user(current_user.getId());
+				r.setResume(resume);	
+		        resumeServiceImpl.saveResume(r);
+		        
+		        current_user.setResume(r);
+		        
+		        userServiceImpl.saveUser(current_user);
+		        
+		        
+		    }
+	        return ResponseEntity.ok("Resume added successfully");
 	    } catch (Exception e) {
 	        e.printStackTrace(); 
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");

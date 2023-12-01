@@ -22,9 +22,9 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 @EnableWebSecurity
 public class LibrarySecurityConfig {
 
-	private static final String[] SECURED_ADMIN = {  };
+	private static final String[] SECURED_ADMIN = { "/users/all" };
 
-	private static final String[] SECURED_USER = { "/interviews/**","/users/**" };
+	private static final String[] SECURED_USER = { "/interviews/**","/users/photo", "/users/resume" };
 
 	private static final String[] UN_SECURED_URLs = {
 			// "/books/all",
