@@ -26,6 +26,10 @@ public class SecurityConfig {
 			"/users/all", 
 			"/change_role/{id_user}/{role}" 
 			};
+	
+	private static final String[] SECURED_HR = { 
+			 
+			};
 
 	private static final String[] SECURED_USER = { 
 			"/interviews/**",
@@ -66,7 +70,8 @@ public class SecurityConfig {
 		if (security) {
 			return http.csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
 					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
-					.requestMatchers(SECURED_USER).hasAuthority("user").anyRequest().authenticated().and()
+					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR).hasAuthority("hr")
+					.anyRequest().authenticated().and()
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 					.authenticationProvider(authenticationProvider())
 					.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
