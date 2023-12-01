@@ -40,7 +40,7 @@ public class IUserSkillServiceImpl implements IUserSkillService{
     }
 
     @Override
-    public List<UserSkill> findByUserIdAndSkillId(Integer id_user, Integer id_skill) {
+    public UserSkill findByUserIdAndSkillId(Integer id_user, Integer id_skill) {
         return dao.findByUserIdAndSkillId(id_user,id_skill);
     }
 

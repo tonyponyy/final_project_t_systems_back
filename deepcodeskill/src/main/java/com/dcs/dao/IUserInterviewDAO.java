@@ -10,10 +10,7 @@ import com.dcs.dto.UserInterview;
 
 public interface IUserInterviewDAO extends JpaRepository<UserInterview, Integer>{
 
-
 	@Query(value = "select * from user_interviews where id_user = ?1 and id_interview = ?2",nativeQuery=true)
 	UserInterview findByUserIdAndInterviewId(Integer userId, Integer interviewId);
 	
-	
-
 }
