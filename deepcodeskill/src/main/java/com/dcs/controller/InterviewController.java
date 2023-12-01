@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Interview;
 import com.dcs.dto.InterviewBasic;
+import com.dcs.dto.InterviewUserResponse;
+import com.dcs.dto.User;
+import com.dcs.dto.UserInterview;
+import com.dcs.dto.UserTest;
 import com.dcs.service.IInterviewServiceImpl;
+import com.dcs.service.IUserInterviewService;
+import com.dcs.service.IUserInterviewServiceImpl;
+import com.dcs.service.IUserServiceImpl;
+import com.dcs.service.IUserTestServiceImpl;
 
 @RestController
 @RequestMapping("/interviews")
@@ -28,6 +37,15 @@ public class InterviewController {
 	
 	@Autowired
 	IInterviewServiceImpl iSer;
+	
+	@Autowired
+	IUserServiceImpl iuuSer;
+	
+	@Autowired
+	IUserInterviewServiceImpl iuSer;
+	
+	@Autowired
+	IUserTestServiceImpl iutSer;
 	
 	@GetMapping("/all")
 	public List<Interview> listInterview(){
@@ -88,5 +106,25 @@ public class InterviewController {
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		iSer.deleteByIdInterview(id);
 	}
+	
+	//show_interview_rh
+		@GetMapping("/show_interview_rh/{id}")
+		public Interview show_interview_rh(@PathVariable(name="id") Integer id) {
+			return iSer.listById(id);
+		}
+		
+		//show_interview_user
+		@GetMapping("/show_interview_user/{id}")
+		public ResponseEntity<InterviewUserResponse> show_interview_user(@PathVariable(name="id") Integer id) {
+		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    User current_user = iuuSer.findByEmail(authentication.getName());
+		    int user_id = current_user.getId();
+			Interview interview = iSer.listById(id);
+		    UserInterview user_interview = iuSer.findByUserIdAndInterviewId(user_id,id); 
+		    List<UserTest> test_user = iutSer.findByUserIdAndInterviewId(user_id,id);
+		    InterviewUserResponse response = new InterviewUserResponse(interview, user_interview,test_user);
+		    return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		
 
 }

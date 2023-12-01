@@ -34,6 +34,7 @@ public class Test {
 	
 	@OneToMany
     @JoinColumn(name="id_test")
+	@JsonIgnore
     private List<UserTest> userTest;
 
 	public Test() {

@@ -40,6 +40,10 @@ public class IUserServiceImpl implements IUserService {
 		public void deleteByIdUser(Integer id) {
 			iuserDAO.deleteById(id);
 		}
+		
+		public User findByEmail(String email) {
+		    return iuserDAO.findByEmail(email).get();
+		}
 
 
 		   

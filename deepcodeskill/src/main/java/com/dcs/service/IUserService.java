@@ -22,5 +22,7 @@ public interface IUserService {
 	//Eliminar
 	public void deleteByIdUser(Integer id);
 
+	public User findByEmail(String email);
+
 	
 }

@@ -15,4 +15,6 @@ public interface IUserInterviewService {
 	public UserInterview updateUserInterview(UserInterview ui);
 	
 	public void deleteByIdUserInterview(Integer id);
+
+	public UserInterview findByUserIdAndInterviewId(Integer user_id, Integer interview_id);
 }

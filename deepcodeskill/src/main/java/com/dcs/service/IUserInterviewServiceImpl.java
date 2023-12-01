@@ -39,6 +39,11 @@ public class IUserInterviewServiceImpl implements IUserInterviewService {
 		dao.deleteById(id);
 	}
 	
+	@Override
+	public UserInterview findByUserIdAndInterviewId(Integer user_id,Integer interview_id) {
+		return dao.findByUserIdAndInterviewId(user_id,interview_id);
+	}
+	
 	
 
 }

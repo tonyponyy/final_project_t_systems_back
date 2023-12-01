@@ -15,5 +15,8 @@ public interface IUserTestService {
 	public UserTest addUserTest(UserTest u);
 	
 	public void deleteByIdUserTest(Integer id);
+	
+	public List<UserTest> findByUserIdAndInterviewId(Integer id_user,Integer id_interview);
+
 
 }

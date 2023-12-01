@@ -1,6 +1,5 @@
 package com.dcs.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,66 +18,59 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.dcs.jwt.JWTAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 public class LibrarySecurityConfig {
 
-    private static final String[] SECURED_ADMIN = {"/users/**"};
-    
-    private static final String[] SECURED_USER = {"/interviews/**"};
+	private static final String[] SECURED_ADMIN = { "/users/**" };
 
-    private static final String[] UN_SECURED_URLs = {
-            //"/books/all",
-            "/auth/login",
-            "/auth/signup"
-    };
+	private static final String[] SECURED_USER = { "/interviews/**" };
 
-    @Autowired
-    private JWTAuthenticationFilter authenticationFilter;
+	private static final String[] UN_SECURED_URLs = {
+			// "/books/all",
+			"/auth/login", "/auth/signup" };
 
-    @Autowired
-    private LibraryUserDetailsService userDetailsService;
+	@Autowired
+	private JWTAuthenticationFilter authenticationFilter;
 
+	@Autowired
+	private LibraryUserDetailsService userDetailsService;
 
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		var authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		return authenticationProvider;
+	}
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        var authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-       return authenticationProvider;
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		boolean security = true;
+		if (security) {
+			return http.csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
+					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
+					.requestMatchers(SECURED_USER).hasAuthority("user").anyRequest().authenticated().and()
+					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+					.authenticationProvider(authenticationProvider())
+					.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
+		} else {
+			http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll())
+					.csrf(AbstractHttpConfigurer::disable);
+			return http.build();
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest()
-		.permitAll())
-		.csrf(AbstractHttpConfigurer::disable);
-		return http.build();
+		}
 
-//        return http.csrf().disable()
-//                .authorizeHttpRequests()
-//                .requestMatchers(UN_SECURED_URLs).permitAll().and()
-//                .authorizeHttpRequests()
-//                .requestMatchers(SECURED_ADMIN).hasAuthority("admin")
-//                .requestMatchers(SECURED_USER).hasAuthority("user").anyRequest().authenticated()
-//                .and().sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-    }
-    
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
 
 }

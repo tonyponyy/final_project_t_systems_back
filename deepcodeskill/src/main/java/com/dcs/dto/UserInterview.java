@@ -2,6 +2,8 @@ package com.dcs.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,10 +22,12 @@ public class UserInterview {
 	
 	@ManyToOne
     @JoinColumn(name = "id_user")
+	@JsonIgnore
     private User user;
  
     @ManyToOne
     @JoinColumn(name = "id_interview")
+    @JsonIgnore
     private Interview interview;
     
     private int state;

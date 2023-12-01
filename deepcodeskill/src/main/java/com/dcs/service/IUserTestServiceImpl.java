@@ -39,5 +39,10 @@ public class IUserTestServiceImpl implements IUserTestService{
 		dao.deleteById(id);	
 		
 	}
+	
+	@Override
+	public List<UserTest> findByUserIdAndInterviewId(Integer id_user,Integer id_interview) {
+	     return dao.findByUserIdAndInterviewId(id_user,id_interview);
+	}
 
 }

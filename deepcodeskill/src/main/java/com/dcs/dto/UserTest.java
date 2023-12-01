@@ -2,6 +2,8 @@ package com.dcs.dto;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class UserTest {
 	
 	@ManyToOne
     @JoinColumn(name = "id_user")
+	@JsonIgnore
 	private User user;
 	
 	@ManyToOne
