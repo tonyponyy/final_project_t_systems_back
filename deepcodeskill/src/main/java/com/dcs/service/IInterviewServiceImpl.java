@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,10 @@ public class IInterviewServiceImpl implements IIterviewService{
 	 public Page<Interview> getPaginatedInterviewBasic(Pageable pageable) {
 	     return dao.findAll(pageable);
 	 }
-
+	 public Page<Interview> getPaginatedInterviewBasicTitle(String name, int page, int size) {
+			PageRequest pageRequest = PageRequest.of(page, size);
+			return dao.findByTitle(name, pageRequest);
+			
+		}
+	 
 }

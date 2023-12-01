@@ -22,5 +22,7 @@ public interface IIterviewService {
 	
 	//metodo para la paginacion
 	Page<Interview> getPaginatedInterviewBasic(Pageable pageable);
+	
+	Page<Interview> getPaginatedInterviewBasicTitle(String name, int page, int size);
 
 }

@@ -51,7 +51,7 @@ public class LibrarySecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		boolean security = true;
+		boolean security = false;
 		if (security) {
 			return http.csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
 					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
