@@ -74,6 +74,19 @@ public class InterviewController {
 		return new ResponseEntity<>(interviews_basic,HttpStatus.OK);
 	}
 	
+	@GetMapping("/search_by/{title}")
+	public ResponseEntity<List<InterviewBasic>>getPaginatedInterviewBasicTitle(
+			@PathVariable(name="title") String title,
+			@RequestParam(defaultValue = "0")int page,
+			@RequestParam(defaultValue = "5") int size){
+		
+		Page<Interview> interviewPage = iSer.getPaginatedInterviewBasicTitle(title, page, size);
+		List<InterviewBasic> interviews_basic = interviewPage.stream().map(this::ConvertInterview).collect(Collectors.toList());
+		
+		return new ResponseEntity<>(interviews_basic,HttpStatus.OK);
+		
+	}
+	
 	@GetMapping("/{id}")
 	public Interview listById(@PathVariable(name="id") Integer id) {
 		return iSer.listById(id);
