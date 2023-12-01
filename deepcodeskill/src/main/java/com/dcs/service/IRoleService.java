@@ -22,5 +22,6 @@ public interface IRoleService {
 	//Eliminar
 	public void deleteByIdRole(Integer id);
 
+	public Role findByName(String name);
 	
 }

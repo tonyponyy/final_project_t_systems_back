@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Resume;
+import com.dcs.dto.Role;
 import com.dcs.dto.User;
 import com.dcs.service.IResumeServiceImpl;
+import com.dcs.service.IRoleServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 
 import jakarta.persistence.EntityManager;
@@ -33,6 +35,8 @@ public class UserController {
 	private IUserServiceImpl userServiceImpl;
 	@Autowired
 	private IResumeServiceImpl resumeServiceImpl;
+	@Autowired
+	private IRoleServiceImpl roleServiceImpl;
 	@Autowired
 	private EntityManager entityManager;
 
@@ -56,7 +60,8 @@ public class UserController {
 		
 		try {
 			System.out.println("TEST PHOTO");
-		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		    System.out.println("GET NAME"+authentication.getName());
 		    User current_user = userServiceImpl.findByEmail(authentication.getName());
 		    //User current_user = userServiceImpl.findByEmail("test@test.com");
 		    System.out.println("EMAIL USER :"+current_user.getEmail());
@@ -93,6 +98,22 @@ public class UserController {
 	        e.printStackTrace(); 
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
 	    }	
+	}
+	
+	@PutMapping("/change_role/{id_user}/{role}")
+	public ResponseEntity actualizarRol(@PathVariable(name="id_user") Integer id,@PathVariable(name="role") String role) {
+		try {
+			User user = userServiceImpl.userById(id);
+			Role role_user = roleServiceImpl.findByName(role); 
+			user.setRole(role_user);
+			
+			userServiceImpl.saveUser(user);
+		} catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding photo");
+		}
+	
+        return ResponseEntity.ok("Role changed successfully");
+		
 	}
 	
 	@PutMapping("/{id}")

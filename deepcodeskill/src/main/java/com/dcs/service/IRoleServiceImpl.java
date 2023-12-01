@@ -16,8 +16,6 @@ public class IRoleServiceImpl implements IRoleService {
 	@Autowired
 	IRoleDAO iroleDAO;
 
-	@Autowired
-	IRoleDAO icientificoDAO;
 
 	//Listar todos
 		public List<Role> listRoles(){
@@ -39,6 +37,11 @@ public class IRoleServiceImpl implements IRoleService {
 		//Eliminar
 		public void deleteByIdRole(Integer id) {
 			iroleDAO.deleteById(id);
+		}
+
+		@Override
+		public Role findByName(String name) {
+			return iroleDAO.findByName(name);
 		}
 
 

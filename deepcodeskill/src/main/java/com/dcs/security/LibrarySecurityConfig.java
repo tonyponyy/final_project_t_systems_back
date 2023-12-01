@@ -22,9 +22,16 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 @EnableWebSecurity
 public class LibrarySecurityConfig {
 
-	private static final String[] SECURED_ADMIN = { "/users/all" };
+	private static final String[] SECURED_ADMIN = { 
+			"/users/all", 
+			"/change_role/{id_user}/{role}" 
+			};
 
-	private static final String[] SECURED_USER = { "/interviews/**","/users/photo", "/users/resume" };
+	private static final String[] SECURED_USER = { 
+			"/interviews/**",
+			"/users/photo", 
+			"/users/resume",
+			"/userskills/**"};
 
 	private static final String[] UN_SECURED_URLs = {
 			// "/books/all",
@@ -51,7 +58,7 @@ public class LibrarySecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		boolean security = false;
+		boolean security = true;
 		if (security) {
 			return http.csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
 					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")

@@ -27,6 +27,8 @@ public class LibraryUserDetails implements UserDetails {
                 .split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        
+        System.out.println("ROLES "+authorities.toString());
     }
 
     @Override
