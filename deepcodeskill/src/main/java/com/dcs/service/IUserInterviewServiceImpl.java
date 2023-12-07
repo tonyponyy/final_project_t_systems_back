@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dcs.dao.IUserInterviewDAO;
+import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
 
 @Service
@@ -37,6 +38,11 @@ public class IUserInterviewServiceImpl implements IUserInterviewService {
 	@Override
 	public void deleteByIdUserInterview(Integer id) {
 		dao.deleteById(id);
+	}
+	
+	@Override
+	public List<UserInterview> findByUser(User u) {
+		return dao.findByUser(u);
 	}
 	
 	@Override

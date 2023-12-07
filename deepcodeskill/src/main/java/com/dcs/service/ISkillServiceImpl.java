@@ -3,9 +3,12 @@ package com.dcs.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dcs.dao.ISkillDAO;
+import com.dcs.dto.Interview;
 import com.dcs.dto.Skill;
 
 @Service
@@ -39,4 +42,11 @@ public class ISkillServiceImpl implements ISkillService{
 		dao.deleteById(id);	
 		
 	}
+
+	@Override
+	public Page<Skill> getPaginatedSkills(Pageable pageable) {
+		return dao.findAll(pageable);
+	}
+	
+
 }

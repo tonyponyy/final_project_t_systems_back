@@ -22,12 +22,10 @@ public class UserInterview {
 	
 	@ManyToOne
     @JoinColumn(name = "id_user")
-	@JsonIgnore
     private User user;
  
     @ManyToOne
     @JoinColumn(name = "id_interview")
-    @JsonIgnore
     private Interview interview;
     
     private int state;
@@ -108,6 +106,12 @@ public class UserInterview {
 
 	public void setJoined_at(Date joined_at) {
 		this.joined_at = joined_at;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInterview [id=" + id + ", user=" + user + ", interview=" + interview + ", state=" + state
+				+ ", internal_comment=" + internal_comment + ", stamp=" + stamp + ", joined_at=" + joined_at + "]";
 	}
     
     

@@ -31,8 +31,8 @@ public class InterviewSkillsController {
 	@Autowired
 	ISkillServiceImpl sSer;
 	
-	
-	
+	/*ROLE RH
+	  El usuario de RH añade skills a las entrevistas*/
 	@PostMapping("/add_by_ids/{id_interview}/{id_skill}")
 	public InterviewSkill newInterviewSkill(@PathVariable(name="id_interview") Integer id_interview,@PathVariable(name="id_skill") Integer id_skill) {
 		Interview interview =iSer.listById(id_interview);
@@ -43,6 +43,8 @@ public class InterviewSkillsController {
 		return tSer.addInterviewSkill(interview_skill);
 	}
 	
+	/*ROLE RH
+	  El usuario de RH borra skills de las entrevistas*/
 	@DeleteMapping("/delete_by_ids/{id_interview}/{id_skill}")
 	public void deleteInterviewSkill(@PathVariable(name="id_interview") Integer id_interview,@PathVariable(name="id_skill") Integer id_skill) {
 		Interview interview =iSer.listById(id_interview);

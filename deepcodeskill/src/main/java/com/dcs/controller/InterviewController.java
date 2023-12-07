@@ -47,10 +47,6 @@ public class InterviewController {
 	@Autowired
 	IUserTestServiceImpl iutSer;
 	
-	@GetMapping("/all")
-	public List<Interview> listInterview(){
-		return iSer.listInterview();
-	}
 	
 	@GetMapping("/all_basic")
 	public ResponseEntity<List<InterviewBasic>> listInterviewBasic(){
@@ -63,6 +59,8 @@ public class InterviewController {
 		return new InterviewBasic(interview.getId(),interview.getTitle(),interview.getEnd_date(),interview.getSkills());
 	}
 	
+	/*ROLE USUARIO y RH 
+	  Lista todas las entrevistas paginadas*/
 	@GetMapping("/paginated_interviews")
 	public ResponseEntity<List<InterviewBasic>>getPaginatedInterviewBasic(
 			@RequestParam(defaultValue = "0")int page,
@@ -74,6 +72,8 @@ public class InterviewController {
 		return new ResponseEntity<>(interviews_basic,HttpStatus.OK);
 	}
 	
+	/*ROLE USUARIO y RH
+	  Buscar entrevista por titulo*/
 	@GetMapping("/search_by/{title}")
 	public ResponseEntity<List<InterviewBasic>>getPaginatedInterviewBasicTitle(
 			@PathVariable(name="title") String title,
@@ -87,57 +87,65 @@ public class InterviewController {
 		
 	}
 	
-	@GetMapping("/{id}")
-	public Interview listById(@PathVariable(name="id") Integer id) {
-		return iSer.listById(id);
+	@PostMapping("/addInterview")
+	public ResponseEntity<Interview> addInterview(@RequestBody Interview i) {
+		Interview i1 = iSer.addInterview(i);
+		return new ResponseEntity<>(i1,HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/editInterview/{id}")
 	public Interview updateInterview(@PathVariable(name="id") Integer id, @RequestBody Interview i) {
 		
 		Interview i1 = iSer.listById(id);
 		Interview i2 = new Interview();
 		
-		i1.setId(i.getId());
-		i1.setDescription(i.getDescription());
-		i1.setTitle(i.getTitle());
-		i1.setTests(i.getTests());
-		i1.setSkills(i.getSkills());
-		i1.setEnd_date(i.getEnd_date());
+		if (i.getDescription() != null) {
+			i1.setDescription(i.getDescription());
+		}
+		if (i.getTitle() != null) {
+			i1.setTitle(i.getTitle());	
+		}
+		if (i.getTests() != null) {
+			i1.setTests(i.getTests());
+		}
+		if (i.getSkills() != null) {
+			i1.setSkills(i.getSkills());
+		}
+		if (i.getEnd_date() != null) {
+			i1.setEnd_date(i.getEnd_date());
+		}
 		
 		i2 = iSer.updateInterview(i1);
 		
 		return i2;
 	}
 	
-	@PostMapping("/add")
-	public Interview addInterview(@RequestBody Interview i) {
-		return iSer.addInterview(i);
-	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/deleteInterview/{id}")
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		iSer.deleteByIdInterview(id);
 	}
 	
-	//show_interview_rh
-		@GetMapping("/show_interview_rh/{id}")
-		public Interview show_interview_rh(@PathVariable(name="id") Integer id) {
-			return iSer.listById(id);
-		}
+	/*ROLE RH
+	  Entrevista con informacionpara el usuario de rh*/
+	@GetMapping("/show_interview_rh/{id}")
+	public Interview show_interview_rh(@PathVariable(name="id") Integer id) {
+		return iSer.listById(id);
+	}
 		
-		//show_interview_user
-		@GetMapping("/show_interview_user/{id}")
-		public ResponseEntity<InterviewUserResponse> show_interview_user(@PathVariable(name="id") Integer id) {
-		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    User current_user = iuuSer.findByEmail(authentication.getName());
-		    int user_id = current_user.getId();
-			Interview interview = iSer.listById(id);
-		    UserInterview user_interview = iuSer.findByUserIdAndInterviewId(user_id,id); 
-		    List<UserTest> test_user = iutSer.findByUserIdAndInterviewId(user_id,id);
-		    InterviewUserResponse response = new InterviewUserResponse(interview, user_interview,test_user);
-		    return new ResponseEntity<>(response, HttpStatus.OK);
-		}
+	/*ROLE USUARIO
+	  Entrevista con informacion basica*/
+	@GetMapping("/show_interview_user/{id}")
+	public ResponseEntity<InterviewUserResponse> show_interview_user(@PathVariable(name="id") Integer id) {
+		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User current_user = iuuSer.findByEmail(authentication.getName());
+		int user_id = current_user.getId();
+		Interview interview = iSer.listById(id);
+		UserInterview user_interview = iuSer.findByUserIdAndInterviewId(user_id,id); 
+		List<UserTest> test_user = iutSer.findByUserIdAndInterviewId(user_id,id);
+		InterviewUserResponse response = new InterviewUserResponse(interview, user_interview,test_user);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 		
 
 }

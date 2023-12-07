@@ -37,17 +37,16 @@ public class UserController {
 	private IResumeServiceImpl resumeServiceImpl;
 	@Autowired
 	private IRoleServiceImpl roleServiceImpl;
-	@Autowired
-	private EntityManager entityManager;
 
+	/*ROLE ADMIN 
+	  Lista a todos los usuarios*/
 	@GetMapping("/all")
 	public List<User> listarUsers(){
 		return userServiceImpl.listUsers();
 	}
-	@PostMapping("/add")
-	public User salvaruser(@RequestBody User user) {
-		return userServiceImpl.saveUser(user);
-	}
+
+	/*ROLE ADMIN 
+	  Ver usuario por id*/
 	@GetMapping("/{id}")
 	public User userXID(@PathVariable(name="id") Integer id) {
 		User user_xid= new User();	
@@ -55,6 +54,8 @@ public class UserController {
 		return user_xid;
 	}
 	
+	/*ROLE USER 
+	  Ver informacion del usuario*/
 	@GetMapping("/current_user/info")
 	public User userInfo() {
 		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
@@ -64,6 +65,8 @@ public class UserController {
 		
 	}
 	
+	/*ROLE ADMIN 
+	  Añadir foto de perfil*/
 	@PutMapping("/photo")
 	public ResponseEntity add_photo(@RequestBody byte[] photo) {
 		
@@ -85,6 +88,8 @@ public class UserController {
 	    }
 	}
 	
+	/*ROLE ADMIN 
+	  Añadir curriculum*/
 	@PutMapping("/resume")
 	public ResponseEntity add_resume(@RequestBody byte[] resume) {
 		
@@ -109,6 +114,8 @@ public class UserController {
 	    }	
 	}
 	
+	/*ROLE ADMIN 
+	  Cambiar el rol a un usuario*/
 	@PutMapping("/change_role/{id_user}/{role}")
 	public ResponseEntity actualizarRol(@PathVariable(name="id_user") Integer id,@PathVariable(name="role") String role) {
 		try {
@@ -125,53 +132,9 @@ public class UserController {
 		
 	}
 	
-	@PutMapping("/update")
-	public User actualizaruser(@RequestBody User user) {
-	    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    User current_user = userServiceImpl.findByEmail(authentication.getName());
-	    User user_seleccionado = userServiceImpl.userById(current_user.getId());
-
-	    if (user.getName() != null) {
-	        user_seleccionado.setName(user.getName());
-	    }
-	    
-	    if (user.getSkills() != null) {
-	        user_seleccionado.setSkills(user.getSkills());
-	    }
-
-	    if (user.getLastname() != null) {
-	        user_seleccionado.setLastname(user.getLastname());
-	    }
-
-	    if (user.getLastname2() != null) {
-	        user_seleccionado.setLastname2(user.getLastname2());
-	    }
-
-	    if (user.getPassword() != null) {
-	        user_seleccionado.setPassword(user.getPassword());
-	    }
-
-	    if (user.getEmail() != null) {
-	        user_seleccionado.setEmail(user.getEmail());
-	    }
-
-//	    if (user.getResume_id() != null) {
-//	        user_seleccionado.setResume(user.getResume());
-//	    }
-
-	    if (user.getRole() != null) {
-	        user_seleccionado.setRole(user.getRole());
-	    }
-
-	    if (user.getPhoto() != null) {
-	        user_seleccionado.setPhoto(user.getPhoto());
-	    }
-
-	    User user_updated = userServiceImpl.updateUser(user_seleccionado);
-	    return user_updated;
-	}
-	
-	@DeleteMapping("/{id}")
+	/*ROLE ADMIN 
+	  Borrar un usuario por id*/
+	@DeleteMapping("/deleteUser/{id}")
 	public void eliminaruser(@PathVariable(name="id")Integer id) {
 		userServiceImpl.deleteByIdUser(id);
 	}

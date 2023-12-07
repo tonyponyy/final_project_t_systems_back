@@ -23,16 +23,26 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 public class SecurityConfig {
 
 	private static final String[] SECURED_ADMIN = { 
-			"/users/all", 
-			"/change_role/{id_user}/{role}" 
+			"/users/all",
+			"/users/{id}",
+			"/change_role/{id_user}/{role}" ,
+			"/users/deleteUser/{id}"
+			};
+	
+	private static final String[] SECURED_HR_AND_USER = { 
+			"/interviews/search_by/{title}",
+			"/interviews/paginated_interviews"
 			};
 	
 	private static final String[] SECURED_HR = { 
-			 
+			"/interviews/show_interview_rh/{id}",
+			"/interviews/addInterview",
+			"/interviews/editInterview/{id}",
+			"/interviews/deleteInterview/{id}",
+			"/skills/**"
 			};
-
+	
 	private static final String[] SECURED_USER = { 
-			"/interviews/**",
 			"/users/photo", 
 			"/users/resume",
 			"/users/update",
@@ -40,7 +50,10 @@ public class SecurityConfig {
 			"/current_user/info",
 			"/userskills/**",
 			"/userskills/add_by/**",
-			"/userskills/delete_by/**"};
+			"/userskills/delete_by/**",
+			"/userinterviews/user_join_interview/{id_interview}",
+			"/userinterviews/user_interviews",
+			"/interviews/show_interview_user/{id}"};
 
 	private static final String[] UN_SECURED_URLs = {
 			"/auth/login", "/auth/signup" };
@@ -70,8 +83,8 @@ public class SecurityConfig {
 		if (security) {
 			return http.csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
 					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
-					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR).hasAuthority("hr")
-					.anyRequest().authenticated().and()
+					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR_AND_USER).hasAnyAuthority("hr","user")
+					.requestMatchers(SECURED_HR).hasAuthority("hr").anyRequest().authenticated().and()
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 					.authenticationProvider(authenticationProvider())
 					.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();

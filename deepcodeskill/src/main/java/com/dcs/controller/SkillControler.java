@@ -1,8 +1,11 @@
 package com.dcs.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Skill;
@@ -22,17 +26,27 @@ public class SkillControler {
 	@Autowired
 	ISkillServiceImpl sSer;
 	
-	@GetMapping("/all")
-	public List<Skill> listSkill(){
-		return sSer.listSkill();
+	@GetMapping("/paginated_skills")
+	public ResponseEntity<List<Skill>> getPaginatedSkills(
+			@RequestParam(defaultValue = "0")int page,
+			@RequestParam(defaultValue = "5") int size){
+		
+		Page<Skill> skillPage = sSer.getPaginatedSkills(PageRequest.of(page, size));
+        List<Skill> skills = skillPage.getContent();
+
+		
+		return new ResponseEntity<> (skills, HttpStatus.OK);
+		
 	}
 	
-	@GetMapping("/{id}")
-	public Skill listById(@PathVariable(name="id") Integer id) {
-		return sSer.listById(id);
+	@PostMapping("/addSkill")
+	public ResponseEntity<Skill> addSkill(@RequestBody Skill s){
+		Skill s1 = sSer.addSkill(s);
+		return new ResponseEntity<> (s1, HttpStatus.OK);
+		
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/editSkill/{id}")
 	public Skill updateSkill(@PathVariable(name="id") Integer id, @RequestBody Skill s) {
 		
 		Skill s1 = sSer.listById(id);
@@ -47,12 +61,7 @@ public class SkillControler {
 		return s2;
 	}
 	
-	@PostMapping("/add")
-	public Skill addSkill(@RequestBody Skill s) {
-		return sSer.addSkill(s);
-	}
-	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/deleteSkill/{id}")
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		sSer.deleteByIdSkill(id);
 	}

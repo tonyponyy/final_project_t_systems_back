@@ -2,6 +2,7 @@ package com.dcs.service;
 
 import java.util.List;
 
+import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
 
 public interface IUserInterviewService {
@@ -15,6 +16,8 @@ public interface IUserInterviewService {
 	public UserInterview updateUserInterview(UserInterview ui);
 	
 	public void deleteByIdUserInterview(Integer id);
+	
+	public List<UserInterview> findByUser(User u);
 
 	public UserInterview findByUserIdAndInterviewId(Integer user_id, Integer interview_id);
 }
