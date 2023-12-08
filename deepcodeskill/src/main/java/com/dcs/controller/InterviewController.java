@@ -26,7 +26,6 @@ import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
 import com.dcs.dto.UserTest;
 import com.dcs.service.IInterviewServiceImpl;
-import com.dcs.service.IUserInterviewService;
 import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
@@ -47,13 +46,6 @@ public class InterviewController {
 	@Autowired
 	IUserTestServiceImpl iutSer;
 	
-	
-	@GetMapping("/all_basic")
-	public ResponseEntity<List<InterviewBasic>> listInterviewBasic(){
-		List<Interview> interviews = iSer.listInterview();
-		List<InterviewBasic> interviews_basic = interviews.stream().map(this::ConvertInterview).collect(Collectors.toList());
-		return new ResponseEntity<>(interviews_basic,HttpStatus.OK);
-	}
 	
 	private InterviewBasic ConvertInterview(Interview interview){
 		return new InterviewBasic(interview.getId(),interview.getTitle(),interview.getEnd_date(),interview.getSkills());
@@ -87,12 +79,16 @@ public class InterviewController {
 		
 	}
 	
+	/*ROLE RH
+	  Añadir una nueva entrevista*/
 	@PostMapping("/addInterview")
 	public ResponseEntity<Interview> addInterview(@RequestBody Interview i) {
 		Interview i1 = iSer.addInterview(i);
 		return new ResponseEntity<>(i1,HttpStatus.OK);
 	}
 	
+	/*ROLE RH
+	  Editar una entrevista*/
 	@PutMapping("/editInterview/{id}")
 	public Interview updateInterview(@PathVariable(name="id") Integer id, @RequestBody Interview i) {
 		
@@ -120,7 +116,8 @@ public class InterviewController {
 		return i2;
 	}
 	
-	
+	/*ROLE RH
+	  Eliminar una entrevista*/
 	@DeleteMapping("/deleteInterview/{id}")
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		iSer.deleteByIdInterview(id);
@@ -130,6 +127,7 @@ public class InterviewController {
 	  Entrevista con informacionpara el usuario de rh*/
 	@GetMapping("/show_interview_rh/{id}")
 	public Interview show_interview_rh(@PathVariable(name="id") Integer id) {
+		System.out.println("INTERVIEW"+iSer.listById(id).getTests());
 		return iSer.listById(id);
 	}
 		

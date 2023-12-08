@@ -1,7 +1,5 @@
 package com.dcs.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.dcs.dao.IInterviewDAO;
 import com.dcs.dto.Interview;
-import com.dcs.dto.InterviewBasic;
 
 @Service
 public class IInterviewServiceImpl implements IIterviewService{
@@ -18,11 +15,6 @@ public class IInterviewServiceImpl implements IIterviewService{
 	@Autowired
 	IInterviewDAO dao;
 	
-	@Override
-	public List<Interview> listInterview() {
-		return dao.findAll();
-	}
-
 	@Override
 	public Interview listById(Integer id) {
 		return dao.findById(id).get();

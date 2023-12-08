@@ -26,6 +26,8 @@ public class SkillControler {
 	@Autowired
 	ISkillServiceImpl sSer;
 	
+	/*ROLE RH
+	  Listar skill, paginadas*/
 	@GetMapping("/paginated_skills")
 	public ResponseEntity<List<Skill>> getPaginatedSkills(
 			@RequestParam(defaultValue = "0")int page,
@@ -34,11 +36,12 @@ public class SkillControler {
 		Page<Skill> skillPage = sSer.getPaginatedSkills(PageRequest.of(page, size));
         List<Skill> skills = skillPage.getContent();
 
-		
 		return new ResponseEntity<> (skills, HttpStatus.OK);
 		
 	}
 	
+	/*ROLE RH
+	  Añadir una nueva skill*/
 	@PostMapping("/addSkill")
 	public ResponseEntity<Skill> addSkill(@RequestBody Skill s){
 		Skill s1 = sSer.addSkill(s);
@@ -46,6 +49,8 @@ public class SkillControler {
 		
 	}
 	
+	/*ROLE RH
+	  Editar una skill*/
 	@PutMapping("/editSkill/{id}")
 	public Skill updateSkill(@PathVariable(name="id") Integer id, @RequestBody Skill s) {
 		
@@ -61,6 +66,8 @@ public class SkillControler {
 		return s2;
 	}
 	
+	/*ROLE RH
+	  Borrar una skill*/
 	@DeleteMapping("/deleteSkill/{id}")
 	public void deleteByIdInterview (@PathVariable(name="id") Integer id) {
 		sSer.deleteByIdSkill(id);

@@ -108,6 +108,12 @@ public class Interview {
 	public void setTests (List<Test> tests) {
 		this.tests = tests;
 	}
+
+	@Override
+	public String toString() {
+		return "Interview [id=" + id + ", title=" + title + ", description=" + description + ", end_date=" + end_date
+				+ ", tests=" + tests + ", skills=" + skills + ", userInterview=" + userInterview + "]";
+	}
 	
 	
 

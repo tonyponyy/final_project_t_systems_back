@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
-import com.dcs.dto.UserTest;
 
 
 public interface IUserInterviewDAO extends JpaRepository<UserInterview, Integer>{

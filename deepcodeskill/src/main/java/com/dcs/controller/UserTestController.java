@@ -1,18 +1,20 @@
 package com.dcs.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dcs.dto.Test;
+import com.dcs.dto.User;
 import com.dcs.dto.UserTest;
+import com.dcs.service.ITestServiceImpl;
+import com.dcs.service.IUserServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
 
 @RestController
@@ -21,41 +23,27 @@ public class UserTestController {
 	
 	@Autowired
 	IUserTestServiceImpl uSer;
+    
+	@Autowired
+	IUserServiceImpl userServiceImpl;
 	
-	@GetMapping("/all")
-	public List<UserTest> listUserTest(){
-		return uSer.listUserTest();
-	}
-	
-	@GetMapping("/{id}")
-	public UserTest listById(@PathVariable(name="id") Integer id) {
-		return uSer.listById(id);
-	}
-	
-	@PutMapping("/{id}")
-	public UserTest updateUserTest(@PathVariable(name="id") Integer id, @RequestBody UserTest u) {
-		
-		UserTest u1 = uSer.listById(id);
-		UserTest u2 = new UserTest();
-		
-		u1.setId(u.getId());
-		u1.setUser(u.getUser());
-		u1.setTest(u.getTest());
-		u1.setDo_at(u.getDo_at());
-		u1.setCalification(u.getCalification());
-		
-		u2 = uSer.updateUserTest(u1);
-		
-		return u2;
-	}
-	
-	@PostMapping("/add")
-	public UserTest addUserTest(@RequestBody UserTest u) {
-		return uSer.addUserTest(u);
-	}
-	
-	@DeleteMapping("/{id}")
-	public void deleteByIdUserTest (@PathVariable(name="id") Integer id) {
-		uSer.deleteByIdUserTest(id);
+	ITestServiceImpl testServiceImpl;
+    
+	/*ROLE RH
+	  Añadir nota un test*/
+	@PostMapping("/user_test/{id_test}")
+	public ResponseEntity<UserTest> userDoTest(@PathVariable(name = "id_test") Integer id, @RequestBody UserTest usertest) {
+		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+	    System.out.println("GET NAME"+authentication.getName());
+	    User current_user = userServiceImpl.findByEmail(authentication.getName());
+	    Test test = testServiceImpl.listTestById(id);
+	    
+	    UserTest ut = new UserTest();
+	    ut.setUser(current_user);
+	    ut.setTest(test);
+	    ut.setCalification(usertest.getCalification());
+	    ut.setDo_at(usertest.getDo_at());
+	        
+		return new ResponseEntity<> (uSer.addUserTest(ut), HttpStatus.OK);
 	}
 }

@@ -39,7 +39,9 @@ public class SecurityConfig {
 			"/interviews/addInterview",
 			"/interviews/editInterview/{id}",
 			"/interviews/deleteInterview/{id}",
-			"/skills/**"
+			"/skills/**",
+			"/interviews_skills/**",
+			"/tests/**"
 			};
 	
 	private static final String[] SECURED_USER = { 

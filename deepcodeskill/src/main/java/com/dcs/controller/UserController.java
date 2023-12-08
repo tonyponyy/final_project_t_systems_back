@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +20,6 @@ import com.dcs.dto.User;
 import com.dcs.service.IResumeServiceImpl;
 import com.dcs.service.IRoleServiceImpl;
 import com.dcs.service.IUserServiceImpl;
-
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
-
 
 @RestController
 @RequestMapping("/users")
@@ -68,7 +63,7 @@ public class UserController {
 	/*ROLE ADMIN 
 	  Añadir foto de perfil*/
 	@PutMapping("/photo")
-	public ResponseEntity add_photo(@RequestBody byte[] photo) {
+	public ResponseEntity<String> add_photo(@RequestBody byte[] photo) {
 		
 		try {
 			System.out.println("TEST PHOTO");
@@ -91,7 +86,7 @@ public class UserController {
 	/*ROLE ADMIN 
 	  Añadir curriculum*/
 	@PutMapping("/resume")
-	public ResponseEntity add_resume(@RequestBody byte[] resume) {
+	public ResponseEntity<String> add_resume(@RequestBody byte[] resume) {
 		
 		try {
 			System.out.println("TEST RESUME");
@@ -117,7 +112,7 @@ public class UserController {
 	/*ROLE ADMIN 
 	  Cambiar el rol a un usuario*/
 	@PutMapping("/change_role/{id_user}/{role}")
-	public ResponseEntity actualizarRol(@PathVariable(name="id_user") Integer id,@PathVariable(name="role") String role) {
+	public ResponseEntity<String> actualizarRol(@PathVariable(name="id_user") Integer id,@PathVariable(name="role") String role) {
 		try {
 			User user = userServiceImpl.userById(id);
 			Role role_user = roleServiceImpl.findByName(role); 

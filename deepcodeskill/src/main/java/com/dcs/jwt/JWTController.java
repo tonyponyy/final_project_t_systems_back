@@ -16,7 +16,6 @@ import com.dcs.dao.IUserDAO;
 import com.dcs.dto.Role;
 import com.dcs.dto.User;
 import com.dcs.exception.UserNotFoundException;
-import com.dcs.service.IUserServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,8 +27,6 @@ public class JWTController {
 	private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private IUserServiceImpl userService;
 	@Autowired
 	private IUserDAO userRepository;
 

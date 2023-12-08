@@ -1,5 +1,6 @@
 package com.dcs.dto;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -160,5 +161,14 @@ public class User {
 		this.skills = skills;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", lastname=" + lastname + ", lastname2=" + lastname2
+				+ ", password=" + password + ", email=" + email + ", skills=" + skills + ", resume=" + resume
+				+ ", role=" + role + ", photo=" + Arrays.toString(photo) + ", userTest=" + userTest + ", userInterview="
+				+ userInterview + "]";
+	}
+
+	
     
 }
