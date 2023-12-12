@@ -79,6 +79,20 @@ public class SecurityConfig {
 		return authenticationProvider;
 	}
 
+// CORS Configuration Bean
+    @Bean
+   CorsConfigurationSource corsConfigurationSource() {
+    	
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");      // Allow all origins or Arrays.asList("http://localhost:4200","http://localhost:3000")
+        configuration.addAllowedMethod("*");      // Allow all methods or List.of("GET", "POST", "PUT", "DELETE")
+        configuration.addAllowedHeader("*");      // Allow all headers
+        configuration.setAllowCredentials(true);  // Allow sending of authentication cookies
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		boolean security = true;
