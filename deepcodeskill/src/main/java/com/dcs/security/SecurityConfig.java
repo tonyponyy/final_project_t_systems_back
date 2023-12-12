@@ -82,40 +82,17 @@ public class SecurityConfig {
 		return authenticationProvider;
 	}
 
-	// CORS Configuration Bean
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-    	
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");      // Allow all origins or Arrays.asList("http://localhost:4200","http://localhost:3000")
-        configuration.addAllowedMethod("*");      // Allow all methods or List.of("GET", "POST", "PUT", "DELETE")
-        configuration.addAllowedHeader("*");      // Allow all headers
-        configuration.setAllowCredentials(true);  // Allow sending of authentication cookies
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		boolean security = true;
 		if (security) {
-			return http
-			        .cors().and()
-			        .csrf().disable()
-			        .authorizeHttpRequests()
-			            .requestMatchers(UN_SECURED_URLs).permitAll()
-			            .requestMatchers(SECURED_ADMIN).hasAuthority("admin")
-			            .requestMatchers(SECURED_USER).hasAuthority("user")
-			            .requestMatchers(SECURED_HR_AND_USER).hasAnyAuthority("hr","user")
-			            .requestMatchers(SECURED_HR).hasAuthority("hr")
-			            .anyRequest().authenticated()
-			            .and()
-			        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			        .and()
-			        .authenticationProvider(authenticationProvider())
-			        .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-			        .build();
+			return http.csrf(csfr -> csfr.disable()).cors(cors ->cors.disable()).authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
+					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
+					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR_AND_USER).hasAnyAuthority("hr","user")
+					.requestMatchers(SECURED_HR).hasAuthority("hr").anyRequest().authenticated().and()
+					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+					.authenticationProvider(authenticationProvider())
+					.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
 		} else {
 			http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll())
 					.csrf(AbstractHttpConfigurer::disable);
