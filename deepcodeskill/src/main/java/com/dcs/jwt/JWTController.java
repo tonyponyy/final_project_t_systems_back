@@ -19,7 +19,7 @@ import com.dcs.dto.Role;
 import com.dcs.dto.User;
 import com.dcs.exception.UserNotFoundException;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class JWTController {
