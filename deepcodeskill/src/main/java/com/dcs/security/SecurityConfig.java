@@ -85,7 +85,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		boolean security = true;
-		if (security) {
+		if (security) { 
 			return  http.cors().and().csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
 					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
 					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR_AND_USER).hasAnyAuthority("hr","user")
