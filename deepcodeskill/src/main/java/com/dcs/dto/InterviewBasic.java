@@ -10,6 +10,8 @@ public class InterviewBasic {
 	
 	private String title;
 	
+	private String description;
+	
 	private Date end_date;
 	
 	private List<Skill> skills;
@@ -20,10 +22,11 @@ public class InterviewBasic {
 
 
 
-	public InterviewBasic(int id, String title, Date end_date, List<Skill> skills) {
+	public InterviewBasic(int id, String title, Date end_date, String description, List<Skill> skills) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.description = description;
 		this.end_date = end_date;
 		this.skills = skills;
 	}

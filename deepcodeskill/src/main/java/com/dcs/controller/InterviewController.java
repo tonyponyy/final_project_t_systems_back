@@ -51,8 +51,8 @@ public class InterviewController {
 	IUserTestServiceImpl iutSer;
 
 	private InterviewBasic ConvertInterview(Interview interview) {
-		return new InterviewBasic(interview.getId(), interview.getTitle(), interview.getEnd_date(),
-				interview.getSkills());
+		return new InterviewBasic(interview.getId(), interview.getTitle(), interview.getEnd_date(), interview.getDescription()
+				,interview.getSkills());
 	}
 
 	/*
