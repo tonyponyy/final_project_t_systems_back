@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dcs.dao.IUserDAO;
 import com.dcs.dto.Role;
 import com.dcs.dto.User;
 import com.dcs.exception.UserNotFoundException;
