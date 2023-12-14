@@ -1,6 +1,8 @@
 package com.dcs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,14 +59,20 @@ public class InterviewController {
 	 * ROLE USUARIO y RH Lista todas las entrevistas paginadas
 	 */
 	@GetMapping("/paginated_interviews")
-	public ResponseEntity<List<InterviewBasic>> getPaginatedInterviewBasic(@RequestParam(defaultValue = "0") int page,
+	public ResponseEntity<Map<String, Object>> getPaginatedInterviewBasic(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "5") int size) {
 
 		Page<Interview> interviewPage = iSer.getPaginatedInterviewBasic(PageRequest.of(page, size));
 		List<InterviewBasic> interviews_basic = interviewPage.stream().map(this::ConvertInterview)
 				.collect(Collectors.toList());
+		
+		  Map<String, Object> response = new HashMap<>();
+	      response.put("interviews", interviews_basic);
+	      response.put("currentPage", interviewPage.getNumber());
+	      response.put("totalItems", interviewPage.getTotalElements());
+	      response.put("totalPages", interviewPage.getTotalPages());
 
-		return new ResponseEntity<>(interviews_basic, HttpStatus.OK);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	/*
