@@ -31,7 +31,7 @@ import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/interviews")
 public class InterviewController {
