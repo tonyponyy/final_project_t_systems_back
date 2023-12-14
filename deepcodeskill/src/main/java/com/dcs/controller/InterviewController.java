@@ -31,7 +31,7 @@ import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/interviews")
 public class InterviewController {
