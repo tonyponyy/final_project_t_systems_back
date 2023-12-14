@@ -34,7 +34,8 @@ public class SecurityConfig {
 	
 	private static final String[] SECURED_HR_AND_USER = { 
 			"/interviews/search_by/{title}",
-			"/interviews/paginated_interviews"
+			"/interviews/paginated_interviews",
+			"/skills/paginated_skills"
 			};
 	
 	private static final String[] SECURED_HR = { 
@@ -42,7 +43,9 @@ public class SecurityConfig {
 			"/interviews/addInterview",
 			"/interviews/editInterview/{id}",
 			"/interviews/deleteInterview/{id}",
-			"/skills/**",
+			"/skills/addSkill",
+			"/skills/editSkill/{id}",
+			"/skills/deleteSkill/{id}",
 			"/interviews_skills/**",
 			"/tests/**"
 			};
