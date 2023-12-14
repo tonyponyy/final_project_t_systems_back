@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.dcs.dto.Interview;
 import com.dcs.dto.InterviewBasic;
@@ -30,6 +31,7 @@ import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/interviews")
 public class InterviewController {
