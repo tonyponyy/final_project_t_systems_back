@@ -79,15 +79,20 @@ public class InterviewController {
 	 * ROLE USUARIO y RH Buscar entrevista por titulo
 	 */
 	@GetMapping("/search_by/{title}")
-	public ResponseEntity<List<InterviewBasic>> getPaginatedInterviewBasicTitle(
+	public ResponseEntity<Map<String, Object>> getPaginatedInterviewBasicTitle(
 			@PathVariable(name = "title") String title, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "5") int size) {
 
 		Page<Interview> interviewPage = iSer.getPaginatedInterviewBasicTitle(title, page, size);
 		List<InterviewBasic> interviews_basic = interviewPage.stream().map(this::ConvertInterview)
 				.collect(Collectors.toList());
+		Map<String, Object> response = new HashMap<>();
+	      response.put("interviews", interviews_basic);
+	      response.put("currentPage", interviewPage.getNumber());
+	      response.put("totalItems", interviewPage.getTotalElements());
+	      response.put("totalPages", interviewPage.getTotalPages());
 
-		return new ResponseEntity<>(interviews_basic, HttpStatus.OK);
+	      return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
 
