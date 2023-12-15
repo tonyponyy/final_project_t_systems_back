@@ -1,6 +1,9 @@
 package com.dcs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,14 +32,21 @@ public class SkillControler {
 	/*ROLE RH
 	  Listar skill, paginadas*/
 	@GetMapping("/paginated_skills")
-	public ResponseEntity<List<Skill>> getPaginatedSkills(
+	public ResponseEntity<Map<String, Object>> getPaginatedSkills(
 			@RequestParam(defaultValue = "0")int page,
 			@RequestParam(defaultValue = "5") int size){
 		
 		Page<Skill> skillPage = sSer.getPaginatedSkills(PageRequest.of(page, size));
         List<Skill> skills = skillPage.getContent();
 
-		return new ResponseEntity<> (skills, HttpStatus.OK);
+        Map<String, Object> response = new HashMap<>();
+	      response.put("interviews", skills);
+	      response.put("currentPage", skillPage.getNumber());
+	      response.put("totalItems", skillPage.getTotalElements());
+	      response.put("totalPages", skillPage.getTotalPages());
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+		
 		
 	}
 	
