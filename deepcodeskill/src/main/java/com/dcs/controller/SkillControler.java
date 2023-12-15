@@ -40,7 +40,7 @@ public class SkillControler {
         List<Skill> skills = skillPage.getContent();
 
         Map<String, Object> response = new HashMap<>();
-	      response.put("interviews", skills);
+	      response.put("skills", skills);
 	      response.put("currentPage", skillPage.getNumber());
 	      response.put("totalItems", skillPage.getTotalElements());
 	      response.put("totalPages", skillPage.getTotalPages());
