@@ -3,9 +3,13 @@ package com.dcs.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dcs.dao.IUserInterviewDAO;
+import com.dcs.dto.Interview;
 import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
 
@@ -49,7 +53,11 @@ public class IUserInterviewServiceImpl implements IUserInterviewService {
 	public UserInterview findByUserIdAndInterviewId(Integer user_id,Integer interview_id) {
 		return dao.findByUserIdAndInterviewId(user_id,interview_id);
 	}
-	
+	 @Override
+	 public Page<UserInterview> getPaginatedUserInterview(Pageable pageable) {
+	     return dao.findAll(pageable);
+	 }
+
 	
 
 }

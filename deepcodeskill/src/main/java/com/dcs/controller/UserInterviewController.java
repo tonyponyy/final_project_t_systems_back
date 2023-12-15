@@ -1,9 +1,13 @@
 package com.dcs.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcs.dto.Interview;
@@ -52,12 +57,21 @@ public class UserInterviewController {
 	}
 	
 	@GetMapping("/user_interviews")
-	public ResponseEntity<List<UserInterview>> userListInterviews(){
+		public ResponseEntity<Map<String, Object>> userListInterviews(@RequestParam(defaultValue = "0") int page,
+				@RequestParam(defaultValue = "5") int size) {	
 		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 	    System.out.println("GET NAME"+authentication.getName());
+	    
+		Page<UserInterview> userInterviewPage = uiSer.getPaginatedUserInterview(PageRequest.of(page, size));
 	    User current_user = userServiceImpl.findByEmail(authentication.getName());
 	    List<UserInterview> userInterviews = uiSer.findByUser(current_user);
-		return new ResponseEntity<>(userInterviews, HttpStatus.OK);
+	    Map<String, Object> response = new HashMap<>();
+	      response.put("interviews", userInterviews);
+	      response.put("currentPage", userInterviewPage.getNumber());
+	      response.put("totalItems", userInterviewPage.getTotalElements());
+	      response.put("totalPages", userInterviewPage.getTotalPages());
+	    
+	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }
