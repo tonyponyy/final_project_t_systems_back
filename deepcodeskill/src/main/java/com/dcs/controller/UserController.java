@@ -40,7 +40,6 @@ public class UserController {
 	private IResumeServiceImpl resumeServiceImpl;
 	@Autowired
 	private IRoleServiceImpl roleServiceImpl;
-
 	/*ROLE ADMIN 
 	  Lista a todos los usuarios*/
 	@GetMapping("/paginated_users")
