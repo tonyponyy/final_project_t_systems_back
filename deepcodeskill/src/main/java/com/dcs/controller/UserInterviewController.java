@@ -57,19 +57,12 @@ public class UserInterviewController {
 	}
 	
 	@GetMapping("/user_interviews")
-		public ResponseEntity<Map<String, Object>> userListInterviews(@RequestParam(defaultValue = "0") int page,
-				@RequestParam(defaultValue = "5") int size) {	
+		public ResponseEntity<Map<String, Object>> userListInterviews() {	
 		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
-	    System.out.println("GET NAME"+authentication.getName());
-	    
-		Page<UserInterview> userInterviewPage = uiSer.getPaginatedUserInterview(PageRequest.of(page, size));
 	    User current_user = userServiceImpl.findByEmail(authentication.getName());
 	    List<UserInterview> userInterviews = uiSer.findByUser(current_user);
 	    Map<String, Object> response = new HashMap<>();
 	      response.put("interviews", userInterviews);
-	      response.put("currentPage", userInterviewPage.getNumber());
-	      response.put("totalItems", userInterviewPage.getTotalElements());
-	      response.put("totalPages", userInterviewPage.getTotalPages());
 	    
 	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}
