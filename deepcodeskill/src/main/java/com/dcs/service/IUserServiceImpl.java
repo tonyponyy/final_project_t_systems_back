@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dcs.dao.IUserDAO;
@@ -43,6 +45,10 @@ public class IUserServiceImpl implements IUserService {
 		
 		public User findByEmail(String email) {
 		    return iuserDAO.findByEmail(email).get();
+		}
+		
+		public Page<User> getPaginatedUsers(Pageable pageable) {
+			return iuserDAO.findAll(pageable);
 		}
 
 

@@ -1,8 +1,13 @@
 package com.dcs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,8 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dcs.dto.Interview;
+import com.dcs.dto.InterviewBasic;
 import com.dcs.dto.Resume;
 import com.dcs.dto.Role;
 import com.dcs.dto.User;
@@ -35,10 +43,21 @@ public class UserController {
 
 	/*ROLE ADMIN 
 	  Lista a todos los usuarios*/
-	@GetMapping("/all")
-	public List<User> listarUsers(){
-		return userServiceImpl.listUsers();
-	}
+	@GetMapping("/paginated_users")
+	public ResponseEntity<Map<String,Object>> getPaginatedUsers(@RequestParam(defaultValue = "0") int page,
+	@RequestParam(defaultValue = "5") int size) {
+		Page<User> userPage = userServiceImpl.getPaginatedUsers(PageRequest.of(page, size));
+		List<User> users = userPage.stream().collect(Collectors.toList());
+		
+		  Map<String, Object> response = new HashMap<>();
+	      response.put("users", users);
+	      response.put("currentPage", userPage.getNumber());
+	      response.put("totalItems", userPage.getTotalElements());
+	      response.put("totalPages", userPage.getTotalPages());
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+	
 
 	/*ROLE ADMIN 
 	  Ver usuario por id*/
