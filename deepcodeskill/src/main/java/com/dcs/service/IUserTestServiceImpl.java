@@ -44,5 +44,9 @@ public class IUserTestServiceImpl implements IUserTestService{
 	public List<UserTest> findByUserIdAndInterviewId(Integer id_user,Integer id_interview) {
 	     return dao.findByUserIdAndInterviewId(id_user,id_interview);
 	}
+	@Override
+	public List<UserTest> findByUserId(Integer id_user) {
+	     return dao.findByUserId(id_user);
+	}
 
 }

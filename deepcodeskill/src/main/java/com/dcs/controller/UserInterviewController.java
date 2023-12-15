@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dcs.dto.Interview;
 import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
+import com.dcs.dto.UserTest;
 import com.dcs.service.IInterviewServiceImpl;
 import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
+import com.dcs.service.IUserTestServiceImpl;
 
 @RestController
 @RequestMapping("/userinterviews")
@@ -31,6 +33,9 @@ public class UserInterviewController {
 	
 	@Autowired
 	IUserInterviewServiceImpl uiSer;
+	
+	@Autowired
+	IUserTestServiceImpl utser;
 	
 	@Autowired
 	IInterviewServiceImpl iSer;
@@ -61,8 +66,10 @@ public class UserInterviewController {
 		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 	    User current_user = userServiceImpl.findByEmail(authentication.getName());
 	    List<UserInterview> userInterviews = uiSer.findByUser(current_user);
+	    List<UserTest> userTest = utser.findByUserId(current_user.getId());
 	    Map<String, Object> response = new HashMap<>();
 	      response.put("interviews", userInterviews);
+	      response.put("user_test", userTest);
 	    
 	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}

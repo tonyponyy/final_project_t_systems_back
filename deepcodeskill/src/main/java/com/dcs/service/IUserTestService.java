@@ -18,5 +18,7 @@ public interface IUserTestService {
 	
 	public List<UserTest> findByUserIdAndInterviewId(Integer id_user,Integer id_interview);
 
+	List<UserTest> findByUserId(Integer id_user);
+
 
 }
