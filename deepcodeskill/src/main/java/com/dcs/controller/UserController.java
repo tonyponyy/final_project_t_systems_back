@@ -42,6 +42,7 @@ public class UserController {
 	private IRoleServiceImpl roleServiceImpl;
 	/*ROLE ADMIN 
 	  Lista a todos los usuarios*/
+	
 	@GetMapping("/paginated_users")
 	public ResponseEntity<Map<String,Object>> getPaginatedUsers(@RequestParam(defaultValue = "0") int page,
 	@RequestParam(defaultValue = "5") int size) {
