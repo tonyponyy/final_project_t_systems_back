@@ -83,13 +83,11 @@ public class UserController {
 	  Añadir foto de perfil*/
 	@PutMapping("/photo")
 	public ResponseEntity<String> add_photo(@RequestBody byte[] photo) {
-		
 		try {
 			System.out.println("TEST PHOTO");
 		    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 		    System.out.println("GET NAME"+authentication.getName());
 		    User current_user = userServiceImpl.findByEmail(authentication.getName());
-		    //User current_user = userServiceImpl.findByEmail("test@test.com");
 		    System.out.println("EMAIL USER :"+current_user.getEmail());
 			if (photo != null) {
 		        current_user.setPhoto(photo);

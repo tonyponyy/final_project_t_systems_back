@@ -25,46 +25,21 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private static final String[] SECURED_ADMIN = { 
-			"/users/all",
-			"/users/{id}",
-			"/change_role/{id_user}/{role}" ,
-			"/users/deleteUser/{id}"
-			};
-	
-	private static final String[] SECURED_HR_AND_USER = { 
-			"/interviews/search_by/{title}",
-			"/interviews/paginated_interviews",
-			"/skills/paginated_skills"
-			};
-	
-	private static final String[] SECURED_HR = { 
-			"/interviews/show_interview_rh/{id}",
-			"/interviews/addInterview",
-			"/interviews/editInterview/{id}",
-			"/interviews/deleteInterview/{id}",
-			"/skills/addSkill",
-			"/skills/editSkill/{id}",
-			"/skills/deleteSkill/{id}",
-			"/interviews_skills/**",
-			"/tests/**"
-			};
-	
-	private static final String[] SECURED_USER = { 
-			"/users/photo", 
-			"/users/resume",
-			"/users/update",
-			"/userskills/**",
-			"/current_user/info",
-			"/userskills/**",
-			"/userskills/add_by/**",
-			"/userskills/delete_by/**",
-			"/userinterviews/user_join_interview/{id_interview}",
-			"/userinterviews/user_interviews",
-			"/interviews/show_interview_user/{id}"};
+	private static final String[] SECURED_ADMIN = { "/users/all", "/users/{id}", "/change_role/{id_user}/{role}",
+			"/users/deleteUser/{id}" };
 
-	private static final String[] UN_SECURED_URLs = {
-			"/auth/login", "/auth/signup" };
+	private static final String[] SECURED_HR_AND_USER = { "/users/update",
+			"/interviews/search_by/{title}", "/interviews/paginated_interviews", "/skills/paginated_skills" };
+
+	private static final String[] SECURED_HR = { "/interviews/show_interview_rh/{id}", "/interviews/addInterview",
+			"/interviews/editInterview/{id}", "/interviews/deleteInterview/{id}", "/skills/addSkill",
+			"/skills/editSkill/{id}", "/skills/deleteSkill/{id}", "/interviews_skills/**", "/tests/**" };
+
+	private static final String[] SECURED_USER = { "/userskills/**", "/current_user/info", "/userskills/**",
+			"/userskills/add_by/**", "/userskills/delete_by/**", "/userinterviews/user_join_interview/{id_interview}",
+			"/userinterviews/user_interviews", "/interviews/show_interview_user/{id}" };
+
+	private static final String[] UN_SECURED_URLs = { "/auth/login", "/auth/signup","/users/photo", "/users/resume" };
 
 	@Autowired
 	private JWTAuthenticationFilter authenticationFilter;
@@ -88,13 +63,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		boolean security = true;
-		if (security) { 
-			return  http.cors().and().csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs).permitAll().and()
-					.authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
-					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR_AND_USER).hasAnyAuthority("hr","user")
-					.requestMatchers(SECURED_HR).hasAuthority("hr").anyRequest().authenticated().and()
-					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-					.authenticationProvider(authenticationProvider())
+		if (security) {
+			return http.cors().and().csrf().disable().authorizeHttpRequests().requestMatchers(UN_SECURED_URLs)
+					.permitAll().and().authorizeHttpRequests().requestMatchers(SECURED_ADMIN).hasAuthority("admin")
+					.requestMatchers(SECURED_USER).hasAuthority("user").requestMatchers(SECURED_HR_AND_USER)
+					.hasAnyAuthority("hr", "user").requestMatchers(SECURED_HR).hasAuthority("hr").anyRequest()
+					.authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and().authenticationProvider(authenticationProvider())
 					.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
 		} else {
 			http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll())
