@@ -30,7 +30,7 @@ public class Interview {
 	private Date end_date;
 	
 	@OneToMany
-    @JoinColumn(name="id")
+    @JoinColumn(name="id_interview")
     private List<Test> tests;
 
     @ManyToMany
