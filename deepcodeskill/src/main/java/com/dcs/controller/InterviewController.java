@@ -150,10 +150,12 @@ public class InterviewController {
 	public ResponseEntity<Map<String, Object>> show_interview_rh(@PathVariable(name = "id") Integer id) {
 		Interview interview = iSer.listById(id);
 		List <UserInterview> users_interview = iuSer.findByInterviewId(id);
+		List <UserTest> user_test = iutSer.findByInterviewId(id);
 		
 		Map<String, Object> response = new HashMap<>();
 	      response.put("interview", interview);
 	      response.put("users", users_interview);
+	      response.put("tests", user_test);
 
 	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}

@@ -17,5 +17,11 @@ public interface IUserTestDAO extends JpaRepository<UserTest, Integer>{
 	
 	@Query(value = "select * from test_users where id_user = ?1", nativeQuery = true)
 	List<UserTest> findByUserId(Integer userId);
+	
+	@Query(value = "SELECT ut.* FROM test_users ut " +
+	           "JOIN tests t ON ut.id_test = t.id " +
+	           "JOIN user_interviews ui ON ut.id_user = ui.id_user AND t.id_interview = ui.id_interview " +
+	           "WHERE ui.id_interview = ?1", nativeQuery = true)
+	List<UserTest> findByInterviewId(Integer userId);
 }
 
