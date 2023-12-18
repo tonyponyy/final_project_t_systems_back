@@ -28,7 +28,7 @@ public class Test {
 	
 	private Date end_date;
 	
-	@ManyToOne
+	@OneToMany
     @JoinColumn(name="id_interview")
     private Interview interview;
 	
