@@ -22,7 +22,6 @@ public class UserTest {
 	
 	@ManyToOne
     @JoinColumn(name = "id_user")
-	@JsonIgnore
 	private User user;
 	
 	@ManyToOne
