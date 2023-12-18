@@ -29,7 +29,7 @@ public class Interview {
 	
 	private Date end_date;
 	
-	@ManyToMany
+	@OneToMany
     @JoinColumn(name="id")
     private List<Test> tests;
 
