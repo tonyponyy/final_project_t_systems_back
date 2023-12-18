@@ -19,6 +19,9 @@ public interface IUserInterviewDAO extends JpaRepository<UserInterview, Integer>
 	UserInterview findByUserIdAndInterviewId(Integer userId, Integer interviewId);
 	
 	List<UserInterview> findByUser(User u);
+
+	@Query(value = "select * from user_interviews where id_interview = ?1",nativeQuery=true)
+	List<UserInterview> findByInterviewId(Integer id);
 	
 	
 }

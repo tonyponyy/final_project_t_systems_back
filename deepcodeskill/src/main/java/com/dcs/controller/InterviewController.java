@@ -147,10 +147,18 @@ public class InterviewController {
 	 * ROLE RH Entrevista con informacionpara el usuario de rh
 	 */
 	@GetMapping("/show_interview_rh/{id}")
-	public Interview show_interview_rh(@PathVariable(name = "id") Integer id) {
-		System.out.println("INTERVIEW" + iSer.listById(id).getTests());
-		return iSer.listById(id);
+	public ResponseEntity<Map<String, Object>> show_interview_rh(@PathVariable(name = "id") Integer id) {
+		Interview interview = iSer.listById(id);
+		List <UserInterview> users_interview = iuSer.findByInterviewId(id);
+		
+		Map<String, Object> response = new HashMap<>();
+	      response.put("interview", interview);
+	      response.put("users", users_interview);
+
+	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	
 
 	/*
 	 * ROLE USUARIO Entrevista con informacion basica

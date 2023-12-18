@@ -27,4 +27,6 @@ public interface IUserInterviewService {
 	
 	//metodo para la paginacion
 	Page<UserInterview> getPaginatedUserInterview(Pageable pageable);
+
+	List<UserInterview> findByInterviewId(Integer id);
 	}

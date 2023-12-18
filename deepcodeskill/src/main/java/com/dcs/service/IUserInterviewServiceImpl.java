@@ -50,6 +50,11 @@ public class IUserInterviewServiceImpl implements IUserInterviewService {
 	}
 	
 	@Override
+	public List<UserInterview> findByInterviewId(Integer id) {
+		return dao.findByInterviewId(id);
+	}
+	
+	@Override
 	public UserInterview findByUserIdAndInterviewId(Integer user_id,Integer interview_id) {
 		return dao.findByUserIdAndInterviewId(user_id,interview_id);
 	}
