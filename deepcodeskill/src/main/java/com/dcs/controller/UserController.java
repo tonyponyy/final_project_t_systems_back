@@ -58,6 +58,25 @@ public class UserController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 	
+	@GetMapping("/my_resume")
+	public ResponseEntity<Map<String,Object>> getMyResume() {	
+	    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+	    System.out.println("GET NAME"+authentication.getName());
+	    User current_user = userServiceImpl.findByEmail(authentication.getName());
+		  Map<String, Object> response = new HashMap<>();
+	      response.put("resume", current_user.getResume());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+	
+	@GetMapping("/user_resume/{id}")
+	public ResponseEntity<Map<String,Object>> getResumeByUser(@PathVariable(name="id") Integer id) {
+		;
+	    User current_user = userServiceImpl.userById(id);
+		  Map<String, Object> response = new HashMap<>();
+	      response.put("resume", current_user.getResume());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+	
 
 	/*ROLE ADMIN 
 	  Ver usuario por id*/
