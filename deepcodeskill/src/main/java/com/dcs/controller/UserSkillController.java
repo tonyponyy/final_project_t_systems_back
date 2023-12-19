@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +42,15 @@ public class UserSkillController {
 		user_skill.setSkill(skill);
 		return uSer.addUserSkill(user_skill);
 	}
-	
+    @PostMapping("/qualificate/{id_user}/{id_skill}")
+	public UserSkill qualificate_user_skill(@PathVariable(name="id_user") Integer id_user,@PathVariable(name="id_skill") Integer id_skill
+			,@RequestBody String comment,@RequestBody Float qualification) {
+    	
+		UserSkill user_skill = uSer.findByUserIdAndSkillId(id_user,id_skill);
+		user_skill.setQualification(qualification);
+		user_skill.setComment(comment);
+		return uSer.addUserSkill(user_skill);
+	}
     /*ROLE USER
 	 Eliminar una skill de un usuario*/
     @DeleteMapping("/delete_by/{id_skill}")
