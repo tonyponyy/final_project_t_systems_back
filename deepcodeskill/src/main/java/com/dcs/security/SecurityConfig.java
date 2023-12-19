@@ -33,11 +33,12 @@ public class SecurityConfig {
 
 	private static final String[] SECURED_HR = { "/interviews/show_interview_rh/{id}", "/interviews/addInterview",
 			"/interviews/editInterview/{id}", "/interviews/deleteInterview/{id}", "/skills/addSkill",
-			"/skills/editSkill/{id}", "/skills/deleteSkill/{id}", "/interviews_skills/**", "/tests/**","/users/user_resume/{id}" };
+			"/skills/editSkill/{id}", "/skills/deleteSkill/{id}", "/interviews_skills/**", "/tests/**","/users/user_resume/{id}",
+			"/userinterviews/changeState/{id_interview}/{state}", "/userinterviews/changeComment/{id_interview}"};
 
 	private static final String[] SECURED_USER = { "/userskills/**", "/current_user/info", "/userskills/**",
 			"/userskills/add_by/**", "/userskills/delete_by/**", "/userinterviews/user_join_interview/{id_interview}",
-			"/userinterviews/user_interviews", "/interviews/show_interview_user/{id}","/users/my_resume" };
+			"/userinterviews/user_interviews", "/interviews/show_interview_user/{id}", "/users/my_resume" };
 
 	private static final String[] UN_SECURED_URLs = { "/auth/login", "/auth/signup","/users/photo", "/users/resume" };
 
