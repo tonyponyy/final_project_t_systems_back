@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +61,44 @@ public class UserInterviewController {
 		u1.setJoined_at(new Date());
 		
 		return new ResponseEntity<>(uiSer.saveUserInterview(u1), HttpStatus.OK);
+	}
+	
+	@PutMapping("/changeState/{id_interview}/{state}")
+	public ResponseEntity<UserInterview> changeState(@PathVariable(name="id_interview") Integer id_interview,@PathVariable(name="state") Integer state) {
+		UserInterview u1 = uiSer.listUserInterviewById(id_interview);
+		UserInterview u2 = new UserInterview();
+		
+		if (state < 5) {
+			u1.setState(state);
+		}
+		u2.setId(u1.getId());
+		u2.setInternal_comment(u1.getInternal_comment());
+		u2.setInterview(u1.getInterview());
+		u2.setJoined_at(u1.getJoined_at());
+		u2.setStamp(u1.getStamp());
+		u2.setState(u1.getState());
+		u2.setUser(u1.getUser());
+		
+		return new ResponseEntity<>(uiSer.updateUserInterview(u2), HttpStatus.OK);
+	}
+	
+	@PutMapping("/changeComment/{id_interview}")
+	public ResponseEntity<UserInterview> changeComment(@PathVariable(name="id_interview") Integer id_interview,@RequestBody String comment) {
+		UserInterview u1 = uiSer.listUserInterviewById(id_interview);
+		UserInterview u2 = new UserInterview();
+		
+		if (comment != "") {
+			u1.setInternal_comment(comment);
+		}
+		u2.setId(u1.getId());
+		u2.setInternal_comment(u1.getInternal_comment());
+		u2.setInterview(u1.getInterview());
+		u2.setJoined_at(u1.getJoined_at());
+		u2.setStamp(u1.getStamp());
+		u2.setState(u1.getState());
+		u2.setUser(u1.getUser());
+		
+		return new ResponseEntity<>(uiSer.updateUserInterview(u2), HttpStatus.OK);
 	}
 	
 	@GetMapping("/user_interviews")
