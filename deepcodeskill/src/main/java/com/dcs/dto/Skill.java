@@ -16,6 +16,7 @@ public class Skill {
 	private String skill_name;
 	
 	private String description;
+	
 
 	public Skill() {
 		
