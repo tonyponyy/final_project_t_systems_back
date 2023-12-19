@@ -104,6 +104,9 @@ MODIFY COLUMN resume MEDIUMBLOB CHECK (LENGTH(resume) <= 1048576);
 ALTER TABLE users
 MODIFY COLUMN photo MEDIUMBLOB CHECK (LENGTH(photo) <= 1048576);
 
+alter table user_skills add qualification float;
+alter table user_skills add comment varchar(250);
+
 use deepcodeskill;
 -- roles
 INSERT INTO `roles` VALUES (1,'user'),(2,'admin'),(3,'hr');
