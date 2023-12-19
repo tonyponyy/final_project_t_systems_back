@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.stream.events.Comment;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dcs.dto.CommentDTO;
 import com.dcs.dto.Interview;
 import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
@@ -83,12 +86,12 @@ public class UserInterviewController {
 	}
 	
 	@PutMapping("/changeComment/{id_interview}")
-	public ResponseEntity<UserInterview> changeComment(@PathVariable(name="id_interview") Integer id_interview,@RequestBody String comment) {
+	public ResponseEntity<UserInterview> changeComment(@PathVariable(name="id_interview") Integer id_interview,@RequestBody CommentDTO comment) {
 		UserInterview u1 = uiSer.listUserInterviewById(id_interview);
 		UserInterview u2 = new UserInterview();
 		
-		if (comment != "") {
-			u1.setInternal_comment(comment);
+		if (comment.getComment() != "") {
+			u1.setInternal_comment(comment.getComment());
 		}
 		u2.setId(u1.getId());
 		u2.setInternal_comment(u1.getInternal_comment());
