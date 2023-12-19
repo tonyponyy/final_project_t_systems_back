@@ -23,38 +23,61 @@ public class UserSkill {
     @JoinColumn(name = "id_skill")
     private Skill skill;
     
+    private float qualification;
+    
+    private String comment;
+    
     public UserSkill() {
         super();
     }
-    
-    public UserSkill(int id, User user, Skill skill) {
-        this.id = id;
-        this.user = user;
-        this.skill = skill;
-    }
 
-    public int getId() {
-        return id;
-    }
+	public UserSkill(int id, User user, Skill skill, float qualification, String comment) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.skill = skill;
+		this.qualification = qualification;
+		this.comment = comment;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public Skill getSkill() {
-        return skill;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
-    }
+	public Skill getSkill() {
+		return skill;
+	}
+
+	public void setSkill(Skill skill) {
+		this.skill = skill;
+	}
+
+	public float getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(float qualification) {
+		this.qualification = qualification;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
     
 }

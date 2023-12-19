@@ -27,10 +27,12 @@ import com.dcs.dto.InterviewBasic;
 import com.dcs.dto.InterviewUserResponse;
 import com.dcs.dto.User;
 import com.dcs.dto.UserInterview;
+import com.dcs.dto.UserSkill;
 import com.dcs.dto.UserTest;
 import com.dcs.service.IInterviewServiceImpl;
 import com.dcs.service.IUserInterviewServiceImpl;
 import com.dcs.service.IUserServiceImpl;
+import com.dcs.service.IUserSkillServiceImpl;
 import com.dcs.service.IUserTestServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -49,6 +51,9 @@ public class InterviewController {
 
 	@Autowired
 	IUserTestServiceImpl iutSer;
+	
+	@Autowired
+	IUserSkillServiceImpl iuskSer;
 
 	private InterviewBasic ConvertInterview(Interview interview) {
 		return new InterviewBasic(interview.getId(), interview.getTitle(), interview.getEnd_date(), interview.getDescription()
@@ -151,11 +156,13 @@ public class InterviewController {
 		Interview interview = iSer.listById(id);
 		List <UserInterview> users_interview = iuSer.findByInterviewId(id);
 		List <UserTest> user_test = iutSer.findByInterviewId(id);
+		List <UserSkill> user_skill = iuskSer.findByInterviewId(id);
 		
 		Map<String, Object> response = new HashMap<>();
 	      response.put("interview", interview);
 	      response.put("users", users_interview);
 	      response.put("tests", user_test);
+	      response.put("user_skills", user_skill);
 
 	      return new ResponseEntity<>(response, HttpStatus.OK);
 	}

@@ -17,4 +17,6 @@ public interface IUserSkillService {
     public void deleteByIdUserSkill(Integer id);
     
     public UserSkill findByUserIdAndSkillId(Integer id_user,Integer id_skill);
+    
+    public List<UserSkill> findByInterviewId(Integer id);
 }

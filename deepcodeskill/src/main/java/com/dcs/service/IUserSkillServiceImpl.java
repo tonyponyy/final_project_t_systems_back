@@ -43,5 +43,9 @@ public class IUserSkillServiceImpl implements IUserSkillService{
     public UserSkill findByUserIdAndSkillId(Integer id_user, Integer id_skill) {
         return dao.findByUserIdAndSkillId(id_user,id_skill);
     }
+    
+    public List<UserSkill> findByInterviewId(Integer id){
+    	return dao.findByInterviewId(id);
+    }
 
 }
