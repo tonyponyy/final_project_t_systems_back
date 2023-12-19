@@ -61,7 +61,6 @@ public class UserController {
 	@GetMapping("/my_resume")
 	public ResponseEntity<Map<String,Object>> getMyResume() {	
 	    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
-	    System.out.println("GET NAME"+authentication.getName());
 	    User current_user = userServiceImpl.findByEmail(authentication.getName());
 		  Map<String, Object> response = new HashMap<>();
 	      response.put("resume", current_user.getResume());
