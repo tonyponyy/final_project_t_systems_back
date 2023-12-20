@@ -1,6 +1,4 @@
 
-----------
-
 # DeepCodeSkill API
 
 ## Auth
