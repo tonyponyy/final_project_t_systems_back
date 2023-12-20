@@ -26,7 +26,8 @@ import com.dcs.jwt.JWTAuthenticationFilter;
 public class SecurityConfig {
 
 	private static final String[] SECURED_ADMIN = { 
-			"/users/all", "/users/{id}", 
+			"/users/all", 
+			"/users/{id}", 
 			"/change_role/{id_user}/{role}",
 			"/users/deleteUser/{id}" };
 
@@ -35,7 +36,8 @@ public class SecurityConfig {
 			"/interviews/search_by/{title}", 
 			"/userskills/delete_by/{id_user}/{id_skill}",
 			"/interviews/paginated_interviews", 
-			"/skills/paginated_skills" };
+			"/skills/paginated_skills",
+			"/users/change_user_info/{id_user}"};
 
 	private static final String[] SECURED_HR = { 
 			"/interviews/show_interview_rh/{id}", 
@@ -57,11 +59,16 @@ public class SecurityConfig {
 			"/current_user/info", 
 			"/userskills/add_by/{id_skill}",  
 			"/userinterviews/user_join_interview/{id_interview}",
-			"/userinterviews/user_interviews", 
+			"/userinterviews/user_interviews",
 			"/interviews/show_interview_user/{id}", 
 			"/users/my_resume" };
 
-	private static final String[] UN_SECURED_URLs = { "/auth/login", "/auth/signup","/users/photo", "/users/resume" };
+	private static final String[] UN_SECURED_URLs = { 
+			"/auth/login", 
+			"/auth/signup",
+			"/users/photo", 
+			"/users/resume"
+			};
 
 	@Autowired
 	private JWTAuthenticationFilter authenticationFilter;
