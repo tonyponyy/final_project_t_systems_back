@@ -27,23 +27,23 @@ public class UserTestController {
 	@Autowired
 	IUserServiceImpl userServiceImpl;
 	
+	@Autowired
 	ITestServiceImpl testServiceImpl;
     
 	/*ROLE RH
 	  Añadir nota un test*/
-	@PostMapping("/user_test/{id_test}")
-	public ResponseEntity<UserTest> userDoTest(@PathVariable(name = "id_test") Integer id, @RequestBody UserTest usertest) {
-		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
-	    System.out.println("GET NAME"+authentication.getName());
-	    User current_user = userServiceImpl.findByEmail(authentication.getName());
-	    Test test = testServiceImpl.listTestById(id);
+	@PostMapping("/user_test/{id_test}/{id_user}")
+	public ResponseEntity<UserTest> userDoTest(@PathVariable(name = "id_test") Integer id_test,@PathVariable(name="id_user") Integer id_user) {
+
+	    User current_user = userServiceImpl.userById(id_user);
+	    Test test = testServiceImpl.listTestById(id_test);
 	    
 	    UserTest ut = new UserTest();
 	    ut.setUser(current_user);
 	    ut.setTest(test);
-	    ut.setCalification(usertest.getCalification());
-	    ut.setDo_at(usertest.getDo_at());
-	        
+	    
+	    System.out.println(ut);
+	       
 		return new ResponseEntity<> (uSer.addUserTest(ut), HttpStatus.OK);
 	}
 }

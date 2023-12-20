@@ -42,6 +42,7 @@ public class SecurityConfig {
 			"/interviews/addInterview",
 			"/interviews/editInterview/{id}", 
 			"/interviews/deleteInterview/{id}", 
+			"/user_test/{id_test}/{id_user}",
 			"/userskills/qualificate/{id_user}/{id_skill}", 
 			"/skills/addSkill",
 			"/skills/editSkill/{id}", 
