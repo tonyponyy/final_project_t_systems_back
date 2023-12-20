@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="resume")
-@JsonIgnoreProperties(value = {"resume"}, allowGetters = true)
 public class Resume {
 	
 	@Id

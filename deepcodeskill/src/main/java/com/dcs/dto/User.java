@@ -40,6 +40,7 @@ public class User {
     
     @ManyToOne
     @JoinColumn(name = "resume_id")
+    @JsonIgnoreProperties({"users", "resume"})
     private Resume resume;
 
     @ManyToOne
@@ -128,8 +129,8 @@ public class User {
 	}
 
 
-	public Resume getResume() {
-		return resume;
+	public Integer  getResume() {
+		return (resume != null) ? resume.getId() : null;
 	}
 
 	public void setResume(Resume resume) {
