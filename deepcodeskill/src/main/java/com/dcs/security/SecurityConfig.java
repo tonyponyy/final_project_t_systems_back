@@ -41,6 +41,7 @@ public class SecurityConfig {
 
 	private static final String[] SECURED_HR = { 
 			"/interviews/show_interview_rh/{id}", 
+			"/usertests/delete_user_test/{id_user_test}",
 			"/interviews/addInterview",
 			"/interviews/editInterview/{id}", 
 			"/interviews/deleteInterview/{id}", 
