@@ -25,6 +25,7 @@ import com.dcs.dto.InterviewBasic;
 import com.dcs.dto.Resume;
 import com.dcs.dto.Role;
 import com.dcs.dto.User;
+import com.dcs.dto.UserDTO;
 import com.dcs.service.IResumeServiceImpl;
 import com.dcs.service.IRoleServiceImpl;
 import com.dcs.service.IUserServiceImpl;
@@ -160,6 +161,21 @@ public class UserController {
 	
         return ResponseEntity.ok("Role changed successfully");
 		
+	}
+	
+	
+	/*ROLE USER 
+	  Cambiar info perfil*/
+	@PutMapping("/change_user_info/{id_user}")
+	public ResponseEntity<User> changeUserInfo(@PathVariable(name="id_user") Integer id_user,@RequestBody UserDTO userDTO) {
+		
+	    User current_user = userServiceImpl.userById(id_user);
+	    
+	    current_user.setName(userDTO.getName());
+	    current_user.setLastname(userDTO.getLastname());
+	    current_user.setLastname2(userDTO.getLastname2());
+
+	    return new ResponseEntity<>(userServiceImpl.saveUser(current_user), HttpStatus.OK);
 	}
 	
 	/*ROLE ADMIN 
