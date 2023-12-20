@@ -40,7 +40,7 @@ public class User {
     
     @ManyToOne
     @JoinColumn(name = "resume_id")
-    @JsonIgnoreProperties({"users", "resume"})
+    @JsonIgnoreProperties("users")
     private Resume resume;
 
     @ManyToOne
@@ -127,10 +127,14 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public Resume getResumefile() {
+		return this.resume;
+	}
 
 
-	public Integer  getResume() {
-		return (resume != null) ? resume.getId() : null;
+	public int getResume() {
+		return resume.getId();
 	}
 
 	public void setResume(Resume resume) {

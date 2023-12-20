@@ -64,7 +64,7 @@ public class UserController {
 	    org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 	    User current_user = userServiceImpl.findByEmail(authentication.getName());
 		  Map<String, Object> response = new HashMap<>();
-	      response.put("resume", current_user.getResume());
+	      response.put("resume", current_user.getResumefile());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 	
@@ -73,7 +73,7 @@ public class UserController {
 		;
 	    User current_user = userServiceImpl.userById(id);
 		  Map<String, Object> response = new HashMap<>();
-	      response.put("resume", current_user.getResume());
+	      response.put("resume", current_user.getResumefile());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 	
