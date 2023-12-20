@@ -63,14 +63,15 @@ public class SecurityConfig {
 			"/userskills/add_by/{id_skill}",  
 			"/userinterviews/user_join_interview/{id_interview}",
 			"/userinterviews/user_interviews",
-			"/interviews/show_interview_user/{id}", 
-			"/users/my_resume" };
+			"/interviews/show_interview_user/{id}" 
+			 };
 
 	private static final String[] UN_SECURED_URLs = { 
 			"/auth/login", 
 			"/auth/signup",
 			"/users/photo", 
-			"/users/resume"
+			"/users/resume",
+			"/users/my_resume"
 			};
 
 	@Autowired
