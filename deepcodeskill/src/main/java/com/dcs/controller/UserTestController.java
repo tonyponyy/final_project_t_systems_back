@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dcs.dto.QualificateUserSkills;
+import com.dcs.dto.QualificateUserTest;
 import com.dcs.dto.Test;
 import com.dcs.dto.User;
 import com.dcs.dto.UserTest;
@@ -29,21 +31,33 @@ public class UserTestController {
 	
 	@Autowired
 	ITestServiceImpl testServiceImpl;
+	
+
     
-	/*ROLE RH
-	  Añadir nota un test*/
+	/*ROLE RH*/
 	@PostMapping("/user_test/{id_test}/{id_user}")
 	public ResponseEntity<UserTest> userDoTest(@PathVariable(name = "id_test") Integer id_test,@PathVariable(name="id_user") Integer id_user) {
 
 	    User current_user = userServiceImpl.userById(id_user);
 	    Test test = testServiceImpl.listTestById(id_test);
-	    
 	    UserTest ut = new UserTest();
 	    ut.setUser(current_user);
 	    ut.setTest(test);
-	    
-	    System.out.println(ut);
-	       
 		return new ResponseEntity<> (uSer.addUserTest(ut), HttpStatus.OK);
 	}
+	
+	@PostMapping("/qualificate/{id_usertest}")
+	public ResponseEntity<UserTest> calificateUserTest(@PathVariable(name = "id_usertest") Integer id_usertest
+			,@RequestBody QualificateUserTest data ) {
+		UserTest user_test = uSer.listById(id_usertest);
+		user_test.setCalification(data.getCalification());
+		user_test.setDo_at(data.getDo_at());
+		
+		return new ResponseEntity<> (uSer.updateUserTest(user_test), HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 }

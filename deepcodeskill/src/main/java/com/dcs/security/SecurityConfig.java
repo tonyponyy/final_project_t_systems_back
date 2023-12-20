@@ -51,7 +51,9 @@ public class SecurityConfig {
 			"/tests/**",
 			"/users/user_resume/{id}",
 			"/userinterviews/changeState/{id_interview}/{state}", 
-			"/userinterviews/changeComment/{id_interview}"};
+			"/userinterviews/changeComment/{id_interview}",
+			"/qualificate/{id_usertest}"
+			};
 
 	private static final String[] SECURED_USER = { 
 			"/current_user/info", 
