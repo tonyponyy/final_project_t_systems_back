@@ -18,7 +18,7 @@ public class Resume {
 	
 	private int id_user;
 	
-	@JsonIgnoreProperties("users")
+	@JsonIgnoreProperties
 	private byte[] resume;
 
 	public Resume(int id, int id_user, byte[] resume) {
