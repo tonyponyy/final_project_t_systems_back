@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"resume"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +41,6 @@ public class User {
     
     @ManyToOne
     @JoinColumn(name = "resume_id")
-    @JsonIgnoreProperties("users")
     private Resume resume;
 
     @ManyToOne
