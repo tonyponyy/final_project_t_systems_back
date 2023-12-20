@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,8 +57,11 @@ public class UserTestController {
 		return new ResponseEntity<> (uSer.updateUserTest(user_test), HttpStatus.OK);
 	}
 	
-	
-	
+	@DeleteMapping("/delete_user_test/{id_user_test}")
+	public ResponseEntity<String> deleteUserTest(@PathVariable(name = "id_user_test") Integer id_usertest) {
+		uSer.deleteByIdUserTest(id_usertest);
+		return new ResponseEntity<> ("Test user deleted", HttpStatus.OK);
+	}
 	
 	
 }
