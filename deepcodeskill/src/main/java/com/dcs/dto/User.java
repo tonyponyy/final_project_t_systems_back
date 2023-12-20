@@ -19,7 +19,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties(value = {"resume"}, allowGetters = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
