@@ -133,8 +133,11 @@ public class User {
 	}
 
 
-	public int getResume() {
-		return resume.getId();
+	public Object getResume() {
+		if (resume != null) {
+            return resume.getId();
+        } else {
+		return null;}
 	}
 
 	public void setResume(Resume resume) {
