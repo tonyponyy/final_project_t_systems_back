@@ -33,7 +33,7 @@ public class SecurityConfig {
 	private static final String[] SECURED_HR_AND_USER = { 
 			"/users/update",
 			"/interviews/search_by/{title}", 
-			"/userskills/delete_by/{id_skill}",
+			"/userskills/delete_by/{id_user}/{id_skill}",
 			"/interviews/paginated_interviews", 
 			"/skills/paginated_skills" };
 

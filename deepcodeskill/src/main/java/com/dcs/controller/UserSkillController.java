@@ -53,15 +53,14 @@ public class UserSkillController {
 		user_skill.setQualification(data.qualification);
 		return uSer.addUserSkill(user_skill);
 	}
+    
     /*ROLE USER
 	 Eliminar una skill de un usuario*/
-    @DeleteMapping("/delete_by/{id_skill}")
-	public void deleteInterviewSkill(@PathVariable(name="id_skill") Integer id_skill) {
-    	org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    User current_user = iuuSer.findByEmail(authentication.getName());
-    	
+    @DeleteMapping("/delete_by/{id_user}/{id_skill}")
+	public void deleteInterviewSkill(@PathVariable(name="id_user") Integer id_user,@PathVariable(name="id_skill") Integer id_skill) {
+    	User user = iuuSer.userById(id_user);
 		Skill skill = sSer.listById(id_skill);
-		UserSkill user_skill = uSer.findByUserIdAndSkillId(current_user.getId(), id_skill);
+		UserSkill user_skill = uSer.findByUserIdAndSkillId(id_user, id_skill);
 		uSer.deleteByIdUserSkill(user_skill.getId());
 	}
 }
