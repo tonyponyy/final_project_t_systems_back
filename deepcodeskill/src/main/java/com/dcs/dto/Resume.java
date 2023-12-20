@@ -1,5 +1,7 @@
 package com.dcs.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Resume {
 	
 	private int id_user;
 	
+	@JsonIgnoreProperties("users")
 	private byte[] resume;
 
 	public Resume(int id, int id_user, byte[] resume) {
