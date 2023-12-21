@@ -265,3 +265,5 @@
 ----------
 
 ### Notas Importantes:
+
+El archivo **SQL** para generar la base de datos se encuentra en la carpeta **other/deepcodeskill.sql**
