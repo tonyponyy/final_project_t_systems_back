@@ -106,6 +106,8 @@ MODIFY COLUMN photo MEDIUMBLOB CHECK (LENGTH(photo) <= 1048576);
 
 alter table user_skills add qualification float;
 alter table user_skills add comment varchar(250);
+ALTER TABLE `deepcodeskill`.`user_skills` 
+CHANGE COLUMN `qualification` `qualification` FLOAT NULL DEFAULT 0 ;
 
 use deepcodeskill;
 -- roles
