@@ -23,7 +23,7 @@ public class UserSkill {
     @JoinColumn(name = "id_skill")
     private Skill skill;
     
-    private Float qualification;
+    private Double qualification;
     
     private String comment;
     
@@ -31,7 +31,7 @@ public class UserSkill {
         super();
     }
 
-	public UserSkill(int id, User user, Skill skill, Float qualification, String comment) {
+	public UserSkill(int id, User user, Skill skill, Double qualification, String comment) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -64,11 +64,11 @@ public class UserSkill {
 		this.skill = skill;
 	}
 
-	public float getQualification() {
+	public Double getQualification() {
 		return qualification;
 	}
 
-	public void setQualification(Float qualification) {
+	public void setQualification(Double qualification) {
 		this.qualification = qualification;
 	}
 

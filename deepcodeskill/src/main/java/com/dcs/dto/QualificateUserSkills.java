@@ -2,9 +2,9 @@ package com.dcs.dto;
 
 public class QualificateUserSkills {
 	public String comment;
-	public Float qualification;
+	public Double qualification;
 	
-	public QualificateUserSkills(String comment, Float qualification) {
+	public QualificateUserSkills(String comment, Double qualification) {
 		super();
 		this.comment = comment;
 		this.qualification = qualification;
@@ -22,11 +22,11 @@ public class QualificateUserSkills {
 		this.comment = comment;
 	}
 
-	public float getQualification() {
+	public Double getQualification() {
 		return qualification;
 	}
 
-	public void setQualification(Float qualification) {
+	public void setQualification(Double qualification) {
 		this.qualification = qualification;
 	}
 	
