@@ -1,5 +1,6 @@
 
-# DeepCodeSkill API
+
+# DeepCodeSkill API ![App logo](other/deepcodeskill.png) 
 
 ## Auth
 ### 1. Iniciar Sesión
